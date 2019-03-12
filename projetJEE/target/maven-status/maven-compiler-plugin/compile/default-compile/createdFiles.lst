@@ -1,3 +1,6 @@
+projetJEE\models\Address.class
+projetJEE\models\Type.class
 projetJEE\controllers\DefaultController.class
 projetJEE\config\WebInitializer.class
 projetJEE\config\AppConfig.class
+projetJEE\models\UserAccount.class
