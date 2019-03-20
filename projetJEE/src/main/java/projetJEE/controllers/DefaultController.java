@@ -14,7 +14,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
  
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap map) {
-        map.put("msg", "Hello Spring 5 Web MVC!");
         return "index";    
+    }
+    
+    @RequestMapping(value = "/Register", method = RequestMethod.GET)
+    public String registerPage(ModelMap map) {
+        return "registerPage";    
+    }
+    
+    @RequestMapping(value = "/Login", method = RequestMethod.GET)
+    public String Login(ModelMap map) {
+        return "login";    
+    }
+    
+    @RequestMapping(value = "/tp1", method = RequestMethod.GET)
+    public String tp1(ModelMap map) {
+        map.put("msg", "Hello Spring 5 Web MVC!");
+        return "tp1";    
     }
 } 

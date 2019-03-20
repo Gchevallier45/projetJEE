@@ -11,3 +11,24 @@ and open the template in the editor.
 .blue {    
     color: "blue";
 } 
+
+.logo .imgLogo {
+    width: 8em;
+}
+
+header {
+    margin-top: 1em;
+}
+nav {
+    margin-bottom: 1em;
+}
+
+section {
+    margin-bottom: 1em;
+}
+
+.formTitle{
+    background: #78c4ed;
+    color: white;
+    margin-top: 1.5em;
+}
