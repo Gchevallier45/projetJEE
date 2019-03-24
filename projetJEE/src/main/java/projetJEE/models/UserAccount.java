@@ -5,24 +5,62 @@
  */
 package projetJEE.models;
 import java.time.LocalDate;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 /**
  *
  * @author redti
  */
-public class UserAccount {
+
+@Entity
+@Table(name = "UserAccounts")
+public class UserAccount implements Serializable {
+    
+    @Id
+    @Column(name = "Id")
     private int ID;
+    
+    @Column(name = "FirstName")   
     private String firstName;
+    
+    @Column(name = "LastName")      
     private String lastName;
+    
+    @Column(name = "Email")        
     private String email;
+    
+    @Column(name = "Password")     
     private String password;
+    
+    @Column(name = "PhoneNumber")
     private String phoneNumber;
+
+    @Column(name = "Active")
     private boolean active;
+    
+    @Column(name = "CreationDate")
     private LocalDate creationDate;
+
+    @Column(name = "LastModificationDate")
     private LocalDate lastModificationDate;
+    
+    @Column(name = "ResetPasswordLink")
     private String resetPasswordLink;
+    
+    @Column(name = "ResetLinkValidateDate")
     private LocalDate resetLinkValidateDate;
+    
+    @Column(name = "IsRemoved")
     private boolean isRemoved;
+    
+    @ManyToOne
     private Type type;
+    
+    @ManyToOne
     private Address address;
     
      public int getID(){
@@ -40,7 +78,7 @@ public class UserAccount {
      public String getLastName(){
         return this.lastName;
     }
-    public void setStreet(String lastName){
+    public void setLastName(String lastName){
         this.lastName = lastName;
     }
      public String getEmail(){
@@ -64,7 +102,8 @@ public class UserAccount {
      public boolean getActive(){
         return this.active;
     }
-    public void setStreet(boolean active){
+
+    public void setActive(boolean active){
         this.active = active;
     }
      public LocalDate getCreationDate(){
