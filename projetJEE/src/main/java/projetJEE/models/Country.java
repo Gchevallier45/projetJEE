@@ -8,13 +8,25 @@ package projetJEE.models;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Countries")
 public class Country implements Serializable {
+
+    public Country(){
+        
+    }
+    
+    public Country(String country) {
+        this.country = country;
+    }
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int ID;
 

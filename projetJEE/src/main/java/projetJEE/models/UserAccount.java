@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,7 +18,27 @@ import javax.persistence.Table;
 @Table(name = "UserAccounts")
 public class UserAccount implements Serializable {
     
+    public UserAccount() {
+    }
+    
+    public UserAccount(String firstName, String lastName, String email, String password, String phoneNumber, boolean active, LocalDate creationDate, LocalDate lastModificationDate, String resetPasswordLink, LocalDate resetLinkValidateDate, boolean isRemoved, Type type, Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.active = active;
+        this.creationDate = creationDate;
+        this.lastModificationDate = lastModificationDate;
+        this.resetPasswordLink = resetPasswordLink;
+        this.resetLinkValidateDate = resetLinkValidateDate;
+        this.isRemoved = isRemoved;
+        this.type = type;
+        this.address = address;
+    }
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int ID;
     
@@ -58,8 +80,8 @@ public class UserAccount implements Serializable {
     
     @ManyToOne
     private Address address;
-    
-     public int getID(){
+
+    public int getID(){
         return this.ID;
     }
     public void setID(int ID){

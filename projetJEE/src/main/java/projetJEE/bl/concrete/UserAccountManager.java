@@ -23,4 +23,9 @@ public class UserAccountManager {
     public UserAccount getUserAccountById(int id) {
         return this.repo.findById(id).get();
     }
+    
+    public void addUserAccount(UserAccount account){
+        this.repo.save(account);
+        this.repo.flush();
+    }
 }
