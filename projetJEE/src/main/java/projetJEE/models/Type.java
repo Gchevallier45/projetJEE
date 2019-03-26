@@ -11,11 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- *
- * @author redti
- */
-
 @Entity
 @Table(name = "Types")
 public class Type implements Serializable {

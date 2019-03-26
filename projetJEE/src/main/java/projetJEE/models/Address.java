@@ -12,10 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-/**
- *
- * @author redti
- */
 @Entity
 @Table(name = "Addresses")
 public class Address implements Serializable {
