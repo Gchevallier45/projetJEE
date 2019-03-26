@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\config\WebInitializer.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\controllers\SecondeController.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\controllers\DefaultController.java
@@ -5,3 +6,14 @@ E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\A
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\config\AppConfig.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\Type.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\UserAccount.java
+=======
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Type.java
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\UserAccount.java
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\UserAccountRepository.java
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\controllers\DefaultController.java
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Address.java
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Country.java
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\config\AppConfig.java
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\config\WebInitializer.java
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\UserAccountManager.java
+>>>>>>> recoveryBDD

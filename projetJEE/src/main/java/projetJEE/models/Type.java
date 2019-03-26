@@ -5,12 +5,36 @@
  */
 package projetJEE.models;
 
-/**
- *
- * @author redti
- */
-public enum Type {
-    Administrator,
-    Owner,
-    Client;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Types")
+public class Type implements Serializable {
+    
+    @Id
+    @Column(name = "Id")
+    private int ID;
+
+    @Column(name = "Type")    
+    private String type;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

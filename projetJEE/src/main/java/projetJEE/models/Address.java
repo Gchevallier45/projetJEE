@@ -5,16 +5,43 @@
  */
 package projetJEE.models;
 
-/**
- *
- * @author redti
- */
-public class Address {
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Addresses")
+public class Address implements Serializable {
+    
+    @Id
+    @Column(name = "Id")
+    private int ID;
+    
+    @Column(name = "Street")
     private String street;
+    
+    @Column(name = "City")
     private String city;
+    
+    @Column(name = "State")
     private String state;
+    
+    @Column(name = "ZipCode")
     private String zipCode;
-    private String country;
+
+    @ManyToOne
+    private Country country;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
     public String getStreet(){
         return this.street;
@@ -40,10 +67,10 @@ public class Address {
     public void setZipCode(String zipCode){
         this.zipCode = zipCode;
     }
-    public String getCountry(){
+    public Country getCountry(){
         return this.country;
     }
-    public void setCountry(String country){
+    public void setCountry(Country country){
         this.country = country;
     }
 }

@@ -1,6 +1,14 @@
+projetJEE\bl\concrete\UserAccountManager.class
 projetJEE\models\Address.class
 projetJEE\models\Type.class
 projetJEE\config\WebInitializer.class
 projetJEE\models\UserAccount.class
+<<<<<<< HEAD
 projetJEE\controllers\DefaultController.class
 projetJEE\config\AppConfig.class
+=======
+projetJEE\models\Country.class
+projetJEE\controllers\DefaultController.class
+projetJEE\config\AppConfig.class
+projetJEE\domain\repository\UserAccountRepository.class
+>>>>>>> recoveryBDD
