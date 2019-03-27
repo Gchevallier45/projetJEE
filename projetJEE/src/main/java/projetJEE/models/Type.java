@@ -8,14 +8,25 @@ package projetJEE.models;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Types")
 public class Type implements Serializable {
+
+    public Type(){
+        
+    }
+    
+    public Type(String type) {
+        this.type = type;
+    }
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int ID;
 

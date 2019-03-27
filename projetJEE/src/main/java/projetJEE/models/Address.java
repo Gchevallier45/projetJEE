@@ -8,6 +8,8 @@ package projetJEE.models;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,7 +18,20 @@ import javax.persistence.Table;
 @Table(name = "Addresses")
 public class Address implements Serializable {
     
+    public Address(){
+        
+    }
+    
+    public Address(String street, String city, String state, String zipCode, Country country) {
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.country = country;
+    }
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int ID;
     
