@@ -6,6 +6,7 @@
 package projetJEE.controllers;
  
 import java.time.LocalDate;
+import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -44,17 +45,23 @@ import projetJEE.models.UserAccount;
     TypeManager typmanager;
     @RequestMapping(value = "/bddtest", method = RequestMethod.GET)
     public String bddtest(ModelMap map) {
-        UserAccount ua = uamanager.getUserAccountById(1);
-        Address adr = adrmanager.getAddressById(1);
-        Type typ = typmanager.getTypeById(1);
+        //UserAccount ua = uamanager.getUserAccountById(1);
+        //Address adr = adrmanager.getAddressById(1);
+        //Type typ = typmanager.getTypeById(1);
         
-        map.put("msg", "BDD test");
-        map.put("userId", ua.getID());
-        map.put("userName", ua.getAddress().getCity());
+        //map.put("msg", "BDD test");
+        //map.put("userId", ua.getID());
+        //map.put("userName", ua.getAddress().getCity());
         
-        UserAccount ub;
-        ub = new UserAccount("nom","prenom","email@email.fr","pass","0254879854",true,LocalDate.now(),LocalDate.now(),"mdr",LocalDate.now(),false,typ,adr);
-        uamanager.addUserAccount(ub);
+        //UserAccount ub;
+        //ub = new UserAccount("nom","prenom","email@email.fr","pass","0254879854",true,LocalDate.now(),LocalDate.now(),"mdr",LocalDate.now(),false,typ,adr);
+        //uamanager.addUserAccount(ub);
+        
+        List<UserAccount> user = uamanager.getAllUsers();
+        //map.put("userName", user.get(0).getFirstName());
+        
+        map.put("userName",uamanager.validateLogin("coucou@coucou.fr", "password"));
+        
         return "bddtest";
     }
 } 

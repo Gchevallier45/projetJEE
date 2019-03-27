@@ -5,6 +5,7 @@
  */
 package projetJEE.bl.concrete;
 
+import java.util.List;
 import projetJEE.models.UserAccount;
 import projetJEE.domain.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,14 @@ public class UserAccountManager {
     
     public UserAccount getUserAccountById(int id) {
         return this.repo.findById(id).get();
+    }
+    
+    public List<UserAccount> getAllUsers(){
+        return this.repo.findAll();
+    }
+    
+    public boolean validateLogin(String login,String password){
+        return !this.repo.findByLoginPass(login, password).isEmpty();
     }
     
     public void addUserAccount(UserAccount account){

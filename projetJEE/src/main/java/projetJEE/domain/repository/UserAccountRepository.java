@@ -5,9 +5,13 @@
  */
 package projetJEE.domain.repository;
 
+import java.util.List;
 import projetJEE.models.UserAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface UserAccountRepository extends JpaRepository<UserAccount, Integer> {
-    
+    @Query("SELECT ua FROM UserAccount ua WHERE ua.email = :email AND ua.password = :password")
+    public List<UserAccount> findByLoginPass(@Param("email") String email, @Param("password") String password);
 }
