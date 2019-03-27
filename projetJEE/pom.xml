@@ -16,6 +16,7 @@
         <jstl.version>1.2</jstl.version> 
         <javax.servlet.version>4.0.1</javax.servlet.version> 
         <fasterxml.jackson.version>2.9.8</fasterxml.jackson.version> 
+        <catalina.logFile>C:/projetJEE/</catalina.logFile>
     </properties>
     
     <dependencies>
