@@ -12,6 +12,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface UserAccountRepository extends JpaRepository<UserAccount, Integer> {
-    @Query("SELECT ua FROM UserAccount ua WHERE ua.email = :email AND ua.password = :password")
+    @Query("SELECT ua FROM UserAccount ua WHERE ua.email = :email AND ua.password = :password AND ua.isRemoved = 0")
     public List<UserAccount> findByLoginPass(@Param("email") String email, @Param("password") String password);
 }
