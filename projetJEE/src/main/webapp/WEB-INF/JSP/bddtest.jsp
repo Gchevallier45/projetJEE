@@ -20,6 +20,7 @@
         <h1>${cp}</h1>
         <h4>Gros test de BDD</h4>
         Utilisateur 1 : nom = <span class="blue">${userName}</span>
+        Magasin ${magasinId} : nom = <span class="blue">${magasinName}</span>
         <br /> 
     </body> 
 </html>

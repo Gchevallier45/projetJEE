@@ -15,9 +15,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod; 
 import projetJEE.bl.concrete.AddressManager;
+import projetJEE.bl.concrete.StoreManager;
 import projetJEE.bl.concrete.TypeManager;
 import org.springframework.web.bind.annotation.RequestParam;
 import projetJEE.bl.concrete.UserAccountManager;
+import projetJEE.models.Address;
+import projetJEE.models.Store;
+import projetJEE.models.Type;
 import projetJEE.models.UserAccount;
  
 @Controller public class DefaultController { 
@@ -76,6 +80,8 @@ import projetJEE.models.UserAccount;
     AddressManager adrmanager;
     @Resource
     TypeManager typmanager;
+    @Resource
+    StoreManager storemanager;
     @RequestMapping(value = "/bddtest", method = RequestMethod.GET)
     public String bddtest(ModelMap map) {
         //UserAccount ua = uamanager.getUserAccountById(1);
@@ -91,8 +97,11 @@ import projetJEE.models.UserAccount;
         //uamanager.addUserAccount(ub);
         
         List<UserAccount> user = uamanager.getAllUsers();
-        //map.put("userName", user.get(0).getFirstName());
         
+        Store store = storemanager.getStoreById(1);
+        //map.put("userName", user.get(0).getFirstName());
+        map.put("magasinId",store.getID());
+        map.put("magasinName", store.getOpeningHour().getMonOpen());
         map.put("userName",uamanager.validateLogin("coucou@coucou.fr", "password"));
         
         return "bddtest";
