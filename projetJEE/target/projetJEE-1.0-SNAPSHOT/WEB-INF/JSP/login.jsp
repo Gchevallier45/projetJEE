@@ -17,7 +17,7 @@
          <section class="container">
             <h1>Login</h1>
            
-            <form>
+            <form action="test" method="POST">
                 <!-- email -->
                 <div class="form-group">
                   <label for="email">Email address</label>
@@ -26,8 +26,8 @@
                 
                 <!-- password -->
                 <div class="form-group">
-                  <label for="password2">Re-enter the password</label>
-                        <input type="password" class="form-control" name="password2" id="password2" placeholder="Password">
+                    <label for="password">The password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                 </div>
                 
                 <p class="text-right"><button type="submit" class="btn btn-primary " >Login</button></p>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.apache.log4j.Logger;
  
 @Controller public class SecondeController {
- 
+ /*
     private static final Logger logger = Logger.getLogger(SecondeController.class);
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -29,5 +29,5 @@ import org.apache.log4j.Logger;
         logger.info("Accès à la page d'accueil du site.");
         return "index";    
     }
-    
+    */
 }
