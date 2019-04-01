@@ -6,6 +6,8 @@
 package projetJEE.models;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import javax.json.JsonObject;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,6 +23,16 @@ public class Country implements Serializable {
     @Column(name = "Country")    
     private String country;
 
+    public Country(JsonObject jsonObject)throws ParseException {
+        this.ID = jsonObject.getInt("id");
+        this.country = jsonObject.getString("country");
+    }
+    
+    public Country(){
+        this.ID = 0;
+        this.country = "defaultCountry";
+    }
+
     public int getID() {
         return ID;
     }
@@ -35,5 +47,13 @@ public class Country implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+    
+     @Override
+    public String toString() {
+        return "Country{" +
+                "id:'" + this.getID()+ '\'' +
+                ", country:" + this.getCountry()+
+                '}';
     }
 }

@@ -6,6 +6,8 @@
 package projetJEE.models;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import javax.json.JsonObject;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -34,7 +36,31 @@ public class Address implements Serializable {
 
     @ManyToOne
     private Country country;
+    
+    public Address(JsonObject jsonObject) throws ParseException {
+        this.ID = jsonObject.getInt("id");
+        this.street = jsonObject.getString("street");
+        this.city = jsonObject.getString("city");
+        this.state = jsonObject.getString("state");
+        this.zipCode = jsonObject.getString("zipCode");
+        if (jsonObject.getJsonObject("Country") != null) {
+	    Country newcountry = new Country((JsonObject)country);
+            this.country = newcountry;
+        } else {
+            this.country = null;
+        }
+    }
+    
+    public Address() {
+        this.ID = 0;
+        this.street = "street";
+        this.city = "city";
+        this.state = "state";
+        this.zipCode = "zipCode";
+        this.country = new Country();
+    }
 
+    
     public int getID() {
         return ID;
     }
@@ -72,5 +98,17 @@ public class Address implements Serializable {
     }
     public void setCountry(Country country){
         this.country = country;
+    }
+    
+     @Override
+    public String toString() {
+        return "Address{" +
+                "id:" + this.getID()+ '\'' +
+                ", street:" + this.getStreet()+
+                ", city:" + this.getCity()+
+                ", state:" + this.getState()+
+                ", zipCode:" + this.getZipCode()+
+                ", Country:" + this.getCountry().toString()+
+                '}';
     }
 }

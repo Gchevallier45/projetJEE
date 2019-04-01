@@ -1,19 +1,18 @@
-<<<<<<< HEAD
-E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\config\WebInitializer.java
-E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\controllers\SecondeController.java
-E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\controllers\DefaultController.java
-E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\Address.java
-E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\config\AppConfig.java
-E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\Type.java
-E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\UserAccount.java
-=======
-C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Type.java
-C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\UserAccount.java
-C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\UserAccountRepository.java
-C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\controllers\DefaultController.java
-C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Address.java
-C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Country.java
-C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\config\AppConfig.java
-C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\config\WebInitializer.java
-C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\UserAccountManager.java
->>>>>>> recoveryBDD
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\UserAccountManager.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\UserAccountRepository.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\DeviceCollectionResponse.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\JwTokenHelper.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\models\Address.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\models\UserAccount.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\UserRest.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\models\Type.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\config\AppConfig.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\config\WebInitializer.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\controllers\SecondeController.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\Device.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\models\Country.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\AuthorizationResponse.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\controllers\DefaultController.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\ShopRest.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\BaseResponse.java
+D:\Pro\Cours\DI4\S8\Plateforme_Java\Projetpull\projetJEE\projetJEE\src\main\java\projetJEE\parser\ParserUserInfo.java

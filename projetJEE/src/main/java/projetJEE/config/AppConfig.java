@@ -6,8 +6,10 @@
 package projetJEE.config;
  
 import java.util.Properties;
+import java.util.Set;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import javax.ws.rs.core.Application;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan; 
@@ -31,7 +33,8 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("projetJEE.domain.repository")
-public class AppConfig implements WebMvcConfigurer { 
+@javax.ws.rs.ApplicationPath("webresources")
+public class AppConfig extends Application implements WebMvcConfigurer { 
 
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
     private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
@@ -97,5 +100,23 @@ public class AppConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {     
         registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+    
+    @Override
+    public Set<Class<?>> getClasses() {
+        Set<Class<?>> resources = new java.util.HashSet<>();
+        addRestResourceClasses(resources);
+        return resources;
+    }
+
+    /**
+     * Do not modify addRestResourceClasses() method.
+     * It is automatically populated with
+     * all resources defined in the project.
+     * If required, comment out calling this method in getClasses().
+     */
+    private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(projetJEE.serviceContrats.ShopRest.class);
+        resources.add(projetJEE.serviceContrats.UserRest.class);
     }
 }

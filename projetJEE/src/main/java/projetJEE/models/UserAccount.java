@@ -6,6 +6,12 @@
 package projetJEE.models;
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.json.JsonObject;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -58,6 +64,68 @@ public class UserAccount implements Serializable {
     
     @ManyToOne
     private Address address;
+    
+    public UserAccount(String firstName, String lastName, String email, String password, String phoneNumber,  boolean active, LocalDate creationDate, 
+           LocalDate lastModificationDate, String resetPasswordLink, LocalDate resetLinkValidateDate, boolean isRemoved, Type type, Address address){
+        
+        this.firstName = firstName;
+	this.lastName = lastName;
+        this.email = email;
+	this.password = password;
+        this.phoneNumber = phoneNumber;
+	this.active = active;
+        this.creationDate = creationDate;
+        this.lastModificationDate = lastModificationDate;
+        this.resetPasswordLink = resetPasswordLink;
+        this.resetLinkValidateDate = resetLinkValidateDate;
+        this.isRemoved = isRemoved;
+        this.type = type;    
+        this.address = address;
+       
+        
+    }
+ 
+             
+    public UserAccount(JsonObject root) throws ParseException {
+        this.firstName = root.getString("firstName");
+	this.lastName = root.getString("LastName");
+        this.email = root.getString("email");
+	this.password = root.getString("password");
+        this.phoneNumber = root.getString("phoneNumber");
+	this.active = root.getBoolean("active");
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
+        String dateStr = root.getString("creationDate");
+        Date strCreationDate = sdf.parse(dateStr);
+        this.creationDate = strCreationDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        String date2Str = root.getString("lastModificationDate");
+        Date strCreationDate2 = sdf.parse(date2Str);
+        this.lastModificationDate = strCreationDate2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        this.resetPasswordLink = root.getString("resetPasswordLink");
+        
+        String date3Str = root.getString("resetLinkValidateDate");
+        Date strCreationDate3 = sdf.parse(date3Str);
+        this.resetLinkValidateDate = strCreationDate3.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        this.isRemoved = root.getBoolean("isRemoved");
+        
+        if (root.getJsonObject("Type") != null) {
+	    Type newtype = new Type((JsonObject)type);
+            this.type = newtype;
+        } else {
+            this.type = null;
+        }
+        
+        if (root.getJsonObject("Address") != null) {
+	    Address newaddress = new Address((JsonObject)address);
+            this.address = newaddress;
+        } else {
+            this.address = null;
+        }
+    }
     
      public int getID(){
         return this.ID;
@@ -143,5 +211,25 @@ public class UserAccount implements Serializable {
     }
     public void setAddress(Address address){
         this.address = address;
+    }
+    
+     @Override
+    public String toString() {
+        return "UserAccount{" +
+                "id='" + this.getID()+ '\'' +
+                ", firstName:" + this.getFirstName() +
+                ", lastName:" + this.getLastName()+
+                ", email:" + this.getEmail() +
+                ", password:" + this.getPassword() +
+                ", phoneNumber:" + this.getPhoneNumber() +
+                ", active:" + this.getActive() +
+                ", CreationDate:" + this.getCreationDate() +
+                ", lastModificationDate:" + this.getLastModificationDate() +
+                ", resetPasswordLink:" + this.getResetPasswordLink() +
+                ", resetLinkValidateDate:" + this.getResetLinkValidateDate() +
+                ", isRemoved:" + this.getIsRemoved()+
+                ", Type:" + this.getType().toString() +
+                ", Address:" + this.getAddress().toString() +
+                '}';
     }
 }
