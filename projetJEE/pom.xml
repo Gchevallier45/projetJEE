@@ -110,6 +110,11 @@
             <version>0.10.5</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>popper.js</artifactId>
+            <version>1.14.1</version>
+         </dependency>
         <!-- Log4j -->
         <dependency>
             <groupId>log4j</groupId>

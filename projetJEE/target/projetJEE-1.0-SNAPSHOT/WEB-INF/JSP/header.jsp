@@ -11,24 +11,16 @@
     </div>
     <!-- option connexion, deconnexion, profil -->
     <div class="option col-sm-12  offset-md-0  col-md-4 offset-lg-1  col-lg-3 align-self-center text-center">
-      <% if(session.getAttribute("userID") != null)
+      <% if(session.getAttribute("user") != null)
       {
-        if(session.getAttribute("role") != null && session.getAttribute("role").equals("admin"))
-        {
-          %>
-              <button type="button" class="btn btn-light" onclick="self.location.href='Logout'">Déconnexion</button>
-          <%
-        }
-        else
-        {
-          %>
+       %>
 
           <!-- Profil utilisateur -->
           <div class="dropdown show dropDownProfil">
             <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi" data-glyph="person"></span> Profil</button>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink d-flex justify-content-center">
-              <span class="elementDrepdown-menu"><%=session.getAttribute("userFirstName")%> <%=session.getAttribute("userLastName")%></span>
+              <span class="elementDrepdown-menu"><%=session.getAttribute("user")%> <%=session.getAttribute("user")%></span>
               <a class="dropdown-item lien" href="<%=request.getContextPath()%>/MonProfil">Mon profil</a>
 
               
@@ -37,7 +29,6 @@
             </div>
           </div>
           <%
-        }
       }
       else
       {

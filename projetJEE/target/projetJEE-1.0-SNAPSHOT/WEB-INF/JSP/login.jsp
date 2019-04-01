@@ -17,17 +17,19 @@
          <section class="container">
             <h1>Login</h1>
            
-            <form action="test" method="POST">
+           <%@include file="messageErreur.jsp" %>
+            
+            <form action="login" method="POST">
                 <!-- email -->
                 <div class="form-group">
                   <label for="email">Email address</label>
-                  <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                  <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" <% if(request.getAttribute("email") != null) { out.println("value='"+request.getAttribute("email")+"'"); }%>>
                 </div>
                 
                 <!-- password -->
                 <div class="form-group">
                     <label for="password">The password</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" <% if(request.getAttribute("password") != null) { out.println("value='"+request.getAttribute("password")+"'"); }%>>
                 </div>
                 
                 <p class="text-right"><button type="submit" class="btn btn-primary " >Login</button></p>
