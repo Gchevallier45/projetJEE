@@ -6,6 +6,8 @@
 package projetJEE.models;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import javax.json.JsonObject;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +35,12 @@ public class Type implements Serializable {
     @Column(name = "Type")    
     private String type;
 
+    public Type(JsonObject jsonObject) throws ParseException {
+        this.ID = jsonObject.getInt("id");
+	this.type = jsonObject.getString("type");
+    }
+    
+
     public int getID() {
         return ID;
     }
@@ -47,5 +55,13 @@ public class Type implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+    
+     @Override
+    public String toString() {
+        return "Type{" +
+                "ID:'" + this.getID()+ '\'' +
+                ", type:" + this.getType()+
+                '}';
     }
 }
