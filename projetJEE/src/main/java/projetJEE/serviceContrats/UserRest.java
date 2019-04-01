@@ -51,7 +51,7 @@ import org.springframework.web.bind.annotation.RestController;
 import projetJEE.bl.concrete.UserAccountManager;
 import projetJEE.domain.repository.UserAccountRepository;
 
-@RestController
+//@RestController
 //@RequestMapping("userrest/")
 @Path("userrest/")
 public class UserRest{
@@ -88,8 +88,8 @@ public class UserRest{
     }
     @GET
     //@RestController
-    //@Path("getUserInfo/{id}")
-    @GetMapping("getUserInfo/{id}")
+    @Path("getUserInfo/{id}")
+    //@GetMapping("getUserInfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public UserAccount getUserInfo(@PathVariable int id) {
         //getUser de Id sur la base de donnée et le stocker dans la variable user
