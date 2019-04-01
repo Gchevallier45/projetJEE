@@ -1,23 +1,18 @@
+projetJEE\controllers\RegisterController.class
 projetJEE\bl\concrete\UserAccountManager.class
 projetJEE\models\Address.class
+projetJEE\controllers\LogoutController.class
 projetJEE\config\WebInitializer.class
-<<<<<<< HEAD
-=======
 projetJEE\domain\repository\TypeRepository.class
 projetJEE\bl\concrete\AddressManager.class
 projetJEE\bl\concrete\CountryManager.class
->>>>>>> Guillaume2603
 projetJEE\models\Country.class
 projetJEE\controllers\DefaultController.class
-projetJEE\controllers\SecondeController.class
 projetJEE\config\AppConfig.class
 projetJEE\domain\repository\AddressRepository.class
 projetJEE\domain\repository\UserAccountRepository.class
+projetJEE\controllers\LoginController.class
 projetJEE\models\Type.class
-<<<<<<< HEAD
-projetJEE\models\UserAccount.class
-=======
 projetJEE\domain\repository\CountryRepository.class
 projetJEE\models\UserAccount.class
 projetJEE\bl\concrete\TypeManager.class
->>>>>>> Guillaume2603

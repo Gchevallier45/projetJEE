@@ -40,29 +40,7 @@ import projetJEE.models.UserAccount;
     }
     
     
-    @RequestMapping(value = "/Register", method = RequestMethod.GET)
-    public String registerPage(ModelMap map) {
-        logger.info("Accès à la page register.");
-        return "registerPage";    
-    }
-    
-    @RequestMapping(value = "/Login", method = RequestMethod.GET)
-    public String LoginPage(ModelMap map) {
-        logger.info("Accès à la page de login.");
-        return "login";    
-    }
-
-    @RequestMapping(value="/test",method=RequestMethod.POST)
-    public String login(HttpServletRequest request,HttpServletResponse response,
-          @RequestParam(value="email", required=false) String email, 
-          @RequestParam(value="password", required=false) String password){
-      
-    logger.info("Accès à la page de login. POST");
-    logger.info("email:"+email + " pass:" + password);
-
-     return "index"; 
-  }
-    
+   
     
     @RequestMapping(value = "/tp1", method = RequestMethod.GET)
     public String tp1(ModelMap map) {
@@ -70,31 +48,4 @@ import projetJEE.models.UserAccount;
         return "tp1";    
     }
     
-    @Resource
-    UserAccountManager uamanager;
-    @Resource
-    AddressManager adrmanager;
-    @Resource
-    TypeManager typmanager;
-    @RequestMapping(value = "/bddtest", method = RequestMethod.GET)
-    public String bddtest(ModelMap map) {
-        //UserAccount ua = uamanager.getUserAccountById(1);
-        //Address adr = adrmanager.getAddressById(1);
-        //Type typ = typmanager.getTypeById(1);
-        
-        //map.put("msg", "BDD test");
-        //map.put("userId", ua.getID());
-        //map.put("userName", ua.getAddress().getCity());
-        
-        //UserAccount ub;
-        //ub = new UserAccount("nom","prenom","email@email.fr","pass","0254879854",true,LocalDate.now(),LocalDate.now(),"mdr",LocalDate.now(),false,typ,adr);
-        //uamanager.addUserAccount(ub);
-        
-        List<UserAccount> user = uamanager.getAllUsers();
-        //map.put("userName", user.get(0).getFirstName());
-        
-        map.put("userName",uamanager.validateLogin("coucou@coucou.fr", "password"));
-        
-        return "bddtest";
-    }
 } 

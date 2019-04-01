@@ -33,7 +33,7 @@
                     <!-- last name -->
                     <div class="form-group col-md-6">
                         <label for="lastName">Last name</label>
-                        <input type="text" class="form-control" name="firstName" id="lastName" aria-describedby="emailHelp" placeholder="Ex: Durant">
+                        <input type="text" class="form-control" name="lastName" id="lastName" aria-describedby="emailHelp" placeholder="Ex: Durant">
                     </div>
                 </div>
                 
@@ -67,8 +67,8 @@
                 
                 <!-- adress -->
                 <div class="form-group">
-                    <label for="inputAddress2">Address 2</label>
-                    <input type="text" class="form-control" id="inputAddress2" placeholder="1234 Main St">
+                    <label for="inputAddress2">Address</label>
+                    <input type="text" class="form-control" id="inputAddress2" name="address" placeholder="1234 Main St">
                 </div>
                 
                 <div class="form-row">
@@ -76,25 +76,25 @@
                     <!-- City -->
                     <div class="form-group col-md-4">
                       <label for="inputCity">City</label>
-                      <input type="text" class="form-control" id="inputCity" placeholder="Tours">
+                      <input type="text" class="form-control" id="inputCity" name="city" placeholder="Tours">
                     </div>
                     
                     <!-- ZipCode -->
                     <div class="form-group col-md-2">
                       <label for="inputZip">Zip</label>
-                      <input type="text" class="form-control" id="inputZip" placeholder="37000">
+                      <input type="text" class="form-control" id="inputZip" name="zipCode" placeholder="37000">
                     </div>
                     
                     <!-- State -->
                     <div class="form-group col-md-3">
                         <label for="validationCustom04">State</label>
-                        <input type="text" class="form-control" id="validationCustom04"  placeholder="Région Centre">
+                        <input type="text" class="form-control" id="validationCustom04" name=state"  placeholder="Région Centre">
                     </div>
 
                     <!-- Country -->
                     <div class="form-group col-md-3">
                       <label for="inputZip">Country</label>
-                      <input type="text" class="form-control" id="inputZip" placeholder="France">
+                      <input type="text" class="form-control" id="inputZip" placeholder="France" name="contry">
                     </div>
                 </div>
 
