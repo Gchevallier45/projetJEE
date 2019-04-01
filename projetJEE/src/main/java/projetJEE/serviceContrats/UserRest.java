@@ -86,9 +86,9 @@ public class UserRest{
         obj.put("msg", "mymethod id = " + id);
         return obj.toString(2);
     }
-    @GET
+
     //@RestController
-    //@Path("getUserInfo/{id}")
+    @Path("getUserInfo/{id}")
     //@GetMapping("getUserInfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public UserAccount getUserInfo(@PathVariable int id) {
