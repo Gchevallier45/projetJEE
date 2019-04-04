@@ -19,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.apache.commons.codec.digest.DigestUtils;
 
 @Entity
 @Table(name = "UserAccounts")
@@ -31,7 +32,7 @@ public class UserAccount implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.password = DigestUtils.sha256Hex(password);
         this.phoneNumber = phoneNumber;
         this.active = active;
         this.creationDate = creationDate;
@@ -159,7 +160,7 @@ public class UserAccount implements Serializable {
         return this.password;
     }
     public void setPassword(String password){
-        this.password = password;
+        this.password = DigestUtils.sha256Hex(password);
     }
      public String getPhoneNumber(){
         return this.phoneNumber;
