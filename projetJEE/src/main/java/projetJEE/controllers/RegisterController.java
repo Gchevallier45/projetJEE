@@ -117,16 +117,16 @@ import projetJEE.models.*;
                     throw new Exception("Le champ contry doit être complété.");
             }
             
-            // test email exist
+            if(uamanager.userAccountExists(email))
+                throw new Exception("Le mail est déjà utilisé pour un autre compte.");
 
             // get country if exist
-            Country objtCountry = null;//getCountryById(contry);
+            Country objtCountry = countryManager.getCountryByName(country);
             if(objtCountry == null) // so add country
             {
                 objtCountry = new Country(country);
                 countryManager.addCountry(objtCountry);
             }
-
             
             // add a new adress
             Address address = new Address(street, city, state, zipCode, objtCountry);
