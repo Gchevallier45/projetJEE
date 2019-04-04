@@ -5,7 +5,10 @@
  */
 package projetJEE.controllers;
  
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,8 +21,10 @@ import projetJEE.bl.concrete.AddressManager;
 import projetJEE.bl.concrete.StoreManager;
 import projetJEE.bl.concrete.TypeManager;
 import org.springframework.web.bind.annotation.RequestParam;
+import projetJEE.bl.concrete.CountryManager;
 import projetJEE.bl.concrete.UserAccountManager;
 import projetJEE.models.Address;
+import projetJEE.models.Country;
 import projetJEE.models.Store;
 import projetJEE.models.Type;
 import projetJEE.models.UserAccount;
@@ -48,5 +53,42 @@ import projetJEE.models.UserAccount;
         map.put("msg", "Hello Spring 5 Web MVC!");
         return "tp1";    
     }
-    
+
+    @Resource
+    UserAccountManager uamanager;
+    @Resource
+    AddressManager adrmanager;
+    @Resource
+    TypeManager typmanager;
+    @Resource
+    StoreManager storemanager;
+    @Resource
+    CountryManager countrymanager;
+    @RequestMapping(value = "/bddtest", method = RequestMethod.GET)
+    public String bddtest(ModelMap map){
+        //UserAccount ua = uamanager.getUserAccountById(1);
+        //Address adr = adrmanager.getAddressById(1);
+        //Type typ = typmanager.getTypeById(1);
+        
+        //map.put("msg", "BDD test");
+        //map.put("userId", ua.getID());
+        //map.put("userName", ua.getAddress().getCity());
+        
+        //UserAccount ub;
+        //ub = new UserAccount("nom","prenom","email@email.fr","pass","0254879854",true,LocalDate.now(),LocalDate.now(),"mdr",LocalDate.now(),false,typ,adr);
+        //uamanager.addUserAccount(ub);
+        
+        List<UserAccount> user = uamanager.getAllUsers();
+        
+        Store store = storemanager.getStoreById(1);
+        
+        Country country = countrymanager.getCountryByName("France");
+ 
+        //map.put("userName", user.get(0).getFirstName());
+        map.put("magasinId",uamanager.userAccountExists("coucopu@coucou.fr"));
+        map.put("magasinName", store.getOpeningHour().getMonOpen());
+        map.put("userName",uamanager.validateLogin("coucou@coucou.fr", "password"));
+        //trouver utilisateur avec adresse mail
+        return "bddtest";
+    }
 } 
