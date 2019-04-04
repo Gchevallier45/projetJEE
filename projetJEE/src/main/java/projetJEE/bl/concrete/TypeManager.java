@@ -28,4 +28,8 @@ public class TypeManager {
         this.repo.save(type);
         this.repo.flush();
     }
+    
+    public Type getTypeByName(String typeName){
+        return this.repo.findTypeByName(typeName);
+    }
 }
