@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.json.JsonObject;
@@ -26,6 +27,19 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class UserAccount implements Serializable {
     
     public UserAccount() {
+        /*this.firstName = "";
+        this.lastName = "";
+        this.email = "";
+        this.password = "";
+        this.phoneNumber = "";
+        this.active = false;
+        this.creationDate = LocalDate.now();
+        this.lastModificationDate = LocalDate.now();
+        this.resetPasswordLink = "";
+        this.resetLinkValidateDate = LocalDate.now();
+        this.isRemoved = false;
+        this.type = new Type();
+        this.address = new Address();*/
     }
     
     public UserAccount(String firstName, String lastName, String email, String password, String phoneNumber, boolean active, LocalDate creationDate, LocalDate lastModificationDate, String resetPasswordLink, LocalDate resetLinkValidateDate, boolean isRemoved, Type type, Address address) {

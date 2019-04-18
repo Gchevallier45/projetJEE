@@ -29,6 +29,15 @@ public class UserAccountManager {
         return this.repo.findById(id).get();
     }
     
+    public UserAccount getUserAccountByLoginPassword(String login, String password) {
+        logger.info("Entrée dans la fonction getUserAccountByLoginPassword");
+        UserAccount user = new UserAccount();
+        if(!this.repo.findByLoginPass(login, DigestUtils.sha256Hex(password)).isEmpty()){
+            user = this.repo.findByLoginPass(login, DigestUtils.sha256Hex(password)).get(0);
+        }
+        return user;
+    }
+    
     public boolean userAccountExists(String email){
         logger.info("Entrée dans la fonction userAccountExists");  
         return !this.repo.findByEmail(email).isEmpty();

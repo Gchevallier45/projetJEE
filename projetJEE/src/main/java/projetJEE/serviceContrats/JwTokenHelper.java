@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class JwTokenHelper {
 
     private static JwTokenHelper jwTokenHelper = null;
-    private static final long EXPIRATION_LIMIT = 30;
+    private static final long EXPIRATION_LIMIT = 1;//30;
     private SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     private JwTokenHelper() {
@@ -36,6 +36,10 @@ public class JwTokenHelper {
         return jwTokenHelper;
     }
 
+    public long getExpiration_limit(){
+        return this.EXPIRATION_LIMIT;
+    }
+    
     public String generatePrivateKey(String username, String password) {
         return Jwts
                 .builder()
