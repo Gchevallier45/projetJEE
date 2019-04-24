@@ -7,16 +7,14 @@ package projetJEE.models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Map;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
+import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,7 +26,7 @@ public class Store implements Serializable {
     public Store(){
     }
     
-    public Store(String keyValue, String name, String phoneNumber, String email, float latitude, float longitude, LocalDate lastModifiedDate, UserAccount lastModifiedBy, Address address, List<OpeningHour> openingHours) {
+    public Store(String keyValue, String name, String phoneNumber, String email, float latitude, float longitude, LocalDate lastModifiedDate, UserAccount lastModifiedBy, Address address, Map<String, OpeningHour> openingHours) {
         this.keyValue = keyValue;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -71,13 +69,9 @@ public class Store implements Serializable {
     @OneToOne
     private Address address;
     
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "openinghours",
-            joinColumns = @JoinColumn(name = "Store_id"),
-            inverseJoinColumns = @JoinColumn(name = "Name")
-    )
-    private List<OpeningHour> openingHours;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="store")
+    @MapKey(name = "name")
+    private Map<String, OpeningHour> openingHours;
     
     public int getID() {
         return ID;
@@ -158,12 +152,12 @@ public class Store implements Serializable {
     public void setAddress(Address address) {
         this.address = address;
     }
-
-    public List<OpeningHour> getOpeningHours() {
+        
+    public Map<String, OpeningHour> getOpeningHours() {
         return openingHours;
     }
 
-    public void setOpeningHour(List<OpeningHour> openingHours) {
+    public void setOpeningHours(Map<String, OpeningHour> openingHours) {
         this.openingHours = openingHours;
     }
 }

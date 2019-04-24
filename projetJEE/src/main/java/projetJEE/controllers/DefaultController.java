@@ -92,8 +92,7 @@ import projetJEE.models.UserAccount;
  
         //map.put("userName", user.get(0).getFirstName());
         map.put("magasinId",uamanager.userAccountExists("coucopu@coucou.fr"));
-        //map.put("magasinName", store.getOpeningHours().get(0).getName());
-        map.put("magasinName", promo.getTitle());
+        map.put("magasinName", store.getOpeningHours().get("Monday").getOpenHour());
         map.put("userName",uamanager.validateLogin("coucou@coucou.fr", "password"));
         //trouver utilisateur avec adresse mail
         return "bddtest";

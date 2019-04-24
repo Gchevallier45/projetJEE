@@ -4,6 +4,7 @@ C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Address
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\BaseResponse.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\ShopRest.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Promotion.java
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\PromotionRepository.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Store.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\UserAccount.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\TypeManager.java
