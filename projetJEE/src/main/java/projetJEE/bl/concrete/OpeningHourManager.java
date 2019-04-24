@@ -5,6 +5,7 @@
  */
 package projetJEE.bl.concrete;
 
+import java.util.List;
 import projetJEE.models.OpeningHour;
 import projetJEE.domain.repository.OpeningHourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class OpeningHourManager {
         this.repo = uarepo;
     }
     
-    public OpeningHour getOpeningHourById(int id) {
-        return this.repo.findById(id).get();
+    public List<OpeningHour> getOpeningHourByStoreId(int id) {
+        return this.repo.findByIdStore(id);
     }
     
     public void addOpeningHour(OpeningHour openingHour){

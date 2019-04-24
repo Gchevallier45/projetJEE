@@ -3,6 +3,7 @@ C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\controllers\Lo
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Address.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\BaseResponse.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\ShopRest.java
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Promotion.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Store.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\UserAccount.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\TypeManager.java
@@ -27,6 +28,7 @@ C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrat
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\AddressManager.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\controllers\DefaultController.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Country.java
+C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\PromotionManager.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\UserRest.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\OpeningHourManager.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\controllers\RegisterController.java

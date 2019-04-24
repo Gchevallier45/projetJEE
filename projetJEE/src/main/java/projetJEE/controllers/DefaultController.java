@@ -22,9 +22,11 @@ import projetJEE.bl.concrete.StoreManager;
 import projetJEE.bl.concrete.TypeManager;
 import org.springframework.web.bind.annotation.RequestParam;
 import projetJEE.bl.concrete.CountryManager;
+import projetJEE.bl.concrete.PromotionManager;
 import projetJEE.bl.concrete.UserAccountManager;
 import projetJEE.models.Address;
 import projetJEE.models.Country;
+import projetJEE.models.Promotion;
 import projetJEE.models.Store;
 import projetJEE.models.Type;
 import projetJEE.models.UserAccount;
@@ -64,6 +66,8 @@ import projetJEE.models.UserAccount;
     StoreManager storemanager;
     @Resource
     CountryManager countrymanager;
+    @Resource
+    PromotionManager promomanager;
     @RequestMapping(value = "/bddtest", method = RequestMethod.GET)
     public String bddtest(ModelMap map){
         //UserAccount ua = uamanager.getUserAccountById(1);
@@ -80,13 +84,16 @@ import projetJEE.models.UserAccount;
         
         List<UserAccount> user = uamanager.getAllUsers();
         
-        Store store = storemanager.getStoreById(1);
+        Store store = storemanager.getStoreById(0);
         
         Country country = countrymanager.getCountryByName("France");
+        
+        Promotion promo = promomanager.getPromotionById(1);
  
         //map.put("userName", user.get(0).getFirstName());
         map.put("magasinId",uamanager.userAccountExists("coucopu@coucou.fr"));
-        map.put("magasinName", store.getOpeningHour().getMonOpen());
+        //map.put("magasinName", store.getOpeningHours().get(0).getName());
+        map.put("magasinName", promo.getTitle());
         map.put("userName",uamanager.validateLogin("coucou@coucou.fr", "password"));
         //trouver utilisateur avec adresse mail
         return "bddtest";

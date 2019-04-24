@@ -11,12 +11,15 @@ projetJEE\controllers\DefaultController.class
 projetJEE\serviceContrats\ShopRest.class
 projetJEE\bl\concrete\OpeningHourManager.class
 projetJEE\controllers\LoginController.class
+projetJEE\bl\concrete\PromotionManager.class
 projetJEE\domain\repository\CountryRepository.class
 projetJEE\serviceContrats\DeviceCollectionResponse.class
 projetJEE\models\UserAccount.class
 projetJEE\bl\concrete\TypeManager.class
+projetJEE\domain\repository\PromotionRepository.class
 projetJEE\serviceContrats\JwTokenHelper.class
 projetJEE\models\Store.class
+projetJEE\models\Promotion.class
 projetJEE\bl\concrete\UserAccountManager.class
 projetJEE\models\Address.class
 projetJEE\serviceContrats\UserRest.class
