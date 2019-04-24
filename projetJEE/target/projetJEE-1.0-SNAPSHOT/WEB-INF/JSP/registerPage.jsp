@@ -84,7 +84,7 @@
                     <!-- ZipCode -->
                     <div class="form-group col-md-2">
                       <label for="inputZip">Zip</label>
-                      <input type="text" class="form-control" id="inputZip" name="zipCode" placeholder="37000" <% if(request.getAttribute("zipCode") != null) { out.println("value='"+request.getAttribute("zipCode")+"'"); }%>>
+                      <input type="text" class="form-control" id="inputZip" maxlength="5" name="zipCode" placeholder="37000" <% if(request.getAttribute("zipCode") != null) { out.println("value='"+request.getAttribute("zipCode")+"'"); }%>>
                     </div>
                     
                     <!-- State -->

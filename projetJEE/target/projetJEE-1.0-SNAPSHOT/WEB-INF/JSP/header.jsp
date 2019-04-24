@@ -25,7 +25,7 @@
 
               
               <div class="dropdown-divider"></div>
-              <button type="button" class="btn btn-light elementDrepdown-menu" onclick="self.location.href='Logout'">Déconnexion</button>
+              <button type="button" class="btn btn-light elementDrepdown-menu" onclick="self.location.href='${cp}/Logout'">Déconnexion</button>
             </div>
           </div>
           <%

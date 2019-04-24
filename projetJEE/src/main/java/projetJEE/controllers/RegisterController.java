@@ -93,9 +93,18 @@ import projetJEE.models.*;
                     throw new Exception("Les deux mots de passes ne sont pas identiques.");
             }
             
+            // we remove espace and point
+             phoneNumber = phoneNumber.replace(" ","").replace(".","");
+            
             if(phoneNumber == null || phoneNumber.isEmpty()) {
                     throw new Exception("Le champ phoneNumber doit être complété.");
             }
+            
+            // verif number
+            if(!phoneNumber.matches("[0-9]*") || phoneNumber.length() != 10) {
+                    throw new Exception("Le fomat du champ phoneNumber n'est pas respectée. Exemple : 02 78 84 84 65");
+            }
+            
             
             if(street == null || street.isEmpty()) {
                     throw new Exception("Le champ address doit être complété.");
@@ -105,8 +114,16 @@ import projetJEE.models.*;
                     throw new Exception("Le champ city doit être complété.");
             }
             
+            // we remove espace and point
+             zipCode = zipCode.replace(" ","").replace(".","");
+            
             if(zipCode == null || zipCode.isEmpty()) {
                     throw new Exception("Le champ zipCode doit être complété.");
+            }
+            
+            // verif number
+            if(!zipCode.matches("[0-9]*") || zipCode.length() != 5) {
+                    throw new Exception("Le fomat du champ zipCode n'est pas respectée. Exemple : 49000");
             }
             
             if(state == null || state.isEmpty()) {
