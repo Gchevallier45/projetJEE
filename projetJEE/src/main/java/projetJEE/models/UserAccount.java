@@ -42,7 +42,7 @@ public class UserAccount implements Serializable {
         this.address = new Address();*/
     }
     
-    public UserAccount(String firstName, String lastName, String email, String password, String phoneNumber, boolean active, LocalDate creationDate, LocalDate lastModificationDate, String resetPasswordLink, LocalDate resetLinkValidateDate, boolean isRemoved, Type type, Address address) {
+    public UserAccount(String firstName, String lastName, String email, String password, String phoneNumber, boolean active, LocalDate creationDate, LocalDate lastModificationDate, String resetPasswordLink, LocalDate resetLinkValidateDate, boolean isRemoved, String UUID, Type type, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -54,6 +54,7 @@ public class UserAccount implements Serializable {
         this.resetPasswordLink = resetPasswordLink;
         this.resetLinkValidateDate = resetLinkValidateDate;
         this.isRemoved = isRemoved;
+        this.UUID = UUID;
         this.type = type;
         this.address = address;
     }
@@ -96,17 +97,15 @@ public class UserAccount implements Serializable {
     @Column(name = "IsRemoved")
     private boolean isRemoved;
     
+    @Column(name = "UUID")
+    private String UUID;
+    
     @ManyToOne
     private Type type;
     
     @ManyToOne
     private Address address;
-
-    public int getID(){
-        return this.ID;
-    }
- 
-             
+            
     public UserAccount(JsonObject root) throws ParseException {
         this.firstName = root.getString("firstName");
 	this.lastName = root.getString("LastName");
@@ -148,7 +147,18 @@ public class UserAccount implements Serializable {
         }
     }
     
-   
+    public String getUUID() {
+        return UUID;
+    }
+
+    public void setUUID(String UUID) {
+        this.UUID = UUID;
+    }
+    
+    public int getID(){
+        return this.ID;
+    }
+    
     public void setID(int ID){
         this.ID = ID;
     }

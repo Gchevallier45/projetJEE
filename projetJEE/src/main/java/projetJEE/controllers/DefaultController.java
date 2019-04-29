@@ -6,12 +6,16 @@
 package projetJEE.controllers;
  
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -81,6 +85,7 @@ import projetJEE.models.UserAccount;
         //UserAccount ub;
         //ub = new UserAccount("nom","prenom","email@email.fr","pass","0254879854",true,LocalDate.now(),LocalDate.now(),"mdr",LocalDate.now(),false,typ,adr);
         //uamanager.addUserAccount(ub);
+        uamanager.changeUserUUID(1, "camarche");
         
         List<UserAccount> user = uamanager.getAllUsers();
         
@@ -91,10 +96,19 @@ import projetJEE.models.UserAccount;
         Promotion promo = promomanager.getPromotionById(1);
  
         //map.put("userName", user.get(0).getFirstName());
-        map.put("magasinId",uamanager.userAccountExists("coucopu@coucou.fr"));
+ 
+        map.put("magasinId",user.get(0).getUUID());
         map.put("magasinName", store.getOpeningHours().get("Monday").getOpenHour());
         map.put("userName",uamanager.validateLogin("coucou@coucou.fr", "password"));
-        //trouver utilisateur avec adresse mail
+        /*try {
+            //trouver utilisateur avec adresse mail
+            URL json = new URL("https://nominatim.openstreetmap.org/?street=Tour+Eiffel&postalcode=75000&city=Paris&country=france&format=json");
+            logger.info(json.getContent().toString());
+        } catch (MalformedURLException ex) {
+            java.util.logging.Logger.getLogger(DefaultController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(DefaultController.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
         return "bddtest";
     }
 } 

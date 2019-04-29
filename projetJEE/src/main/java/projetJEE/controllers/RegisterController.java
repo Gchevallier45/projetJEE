@@ -154,7 +154,7 @@ import projetJEE.models.*;
             // add user account
             LocalDate now = LocalDate.now();
             System.out.println("Before add account");
-            UserAccount newUser = new UserAccount(firstName, lastName, email, password, phoneNumber, false, now, now, "fff", null, false, type, address);
+            UserAccount newUser = new UserAccount(firstName, lastName, email, password, phoneNumber, false, now, now, "fff", null, false, "",type, address);
             
            System.out.println("After create object");
             uamanager.addUserAccount(newUser);

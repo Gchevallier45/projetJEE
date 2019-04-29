@@ -28,7 +28,14 @@ public class UserAccountManager {
         logger.info("Entrée dans la fonction getUserAccountById");
         return this.repo.findById(id).get();
     }
-    
+
+    public void changeUserUUID(int idUser, String newUUID){
+        UserAccount user = getUserAccountById(idUser);
+        user.setUUID(newUUID);
+        this.repo.save(user);
+        this.repo.flush();
+	}
+
     public UserAccount getUserAccountByLoginPassword(String login, String password) {
         logger.info("Entrée dans la fonction getUserAccountByLoginPassword");
         UserAccount user = new UserAccount();
