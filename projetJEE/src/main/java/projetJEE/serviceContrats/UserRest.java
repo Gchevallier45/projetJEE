@@ -5,35 +5,42 @@
  */
 package projetJEE.serviceContrats;
 
+//import javax.inject.Inject;
+import javax.crypto.KeyGenerator;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Encoders;
+import io.jsonwebtoken.security.Keys;
 import java.security.Key;
+import java.security.KeyStore;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import projetJEE.bl.concrete.UserAccountManager;
 import javax.annotation.Resource;
-import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import javax.ws.rs.core.UriInfo;
 import org.json.JSONException;
-//import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,6 +56,9 @@ import projetJEE.models.*;
 @RequestMapping("/api/userrest")
 
 public class UserRest {
+    
+private static final Logger logger = Logger.getLogger(UserRest.class);
+
 @Resource
     UserAccountManager uamanager;
 @Resource
@@ -60,15 +70,14 @@ public class UserRest {
 //
 @Context
     private UriInfo uriInfo;
-
     /*@Autowired*/
-    private static Logger logger;
-    //private final Logger logger = (Logger) LoggerFactory.getLogger(UserRest.class);
+    //private static Logger logger;
+    // = KeyGenerator(KeyGeneratorSpi keyGenSpi, Provider provider, String algorithm);
 
-    //@Autowired
     private KeyGenerator keyGenerator;
 //
-    public UserRest() {
+    public UserRest() throws NoSuchAlgorithmException {
+        this.keyGenerator = KeyGenerator.getInstance("AES");
     }
  
     @GetMapping(value = "/getTest", produces = MediaType.APPLICATION_JSON)
@@ -85,7 +94,14 @@ public class UserRest {
  
 
     @GetMapping(value = "/getUserInfo/{id}", produces = MediaType.APPLICATION_JSON)
-    public String getUserInfo(@PathVariable("id") String id) throws Exception {
+    public String getUserInfo(@PathVariable("id") String id, @RequestHeader HttpHeaders headers) throws Exception, NotAuthorizedException {
+        
+        if (!TokenManagement.verifyToken(headers.getHeaderString("authentificationToken"))) {
+
+              throw new NotAuthorizedException("Invalid token");
+
+        }
+        
           org.json.JSONObject obj = new  org.json.JSONObject();
         try{
             UserAccount user = uamanager.getUserAccountById(Integer.parseInt(id));
@@ -257,17 +273,22 @@ public class UserRest {
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
-    public Response login(@QueryParam("email") String login,@QueryParam("password") String password) throws Exception {
+    public Response login(@QueryParam("email") String email,@QueryParam("password") String password) throws Exception {
         try {
 
-            logger.log(Level.INFO, "#### login/password : {0}/{1}", new Object[]{login, password});
-
+            //logger.log(Level.INFO, "#### login/password : {0}/{1}", new Object[]{login, password});
+            logger.info("1");
             // Authenticate the user using the credentials provided
-            authenticate(login, password);
-
+            int id = authenticate(email, password);
+            logger.info("edjzehdjezfhozefzef");
+            if (id == 0){
+                throw new SecurityException("Invalid user/password id = 0");
+            }
             // Issue a token for the user
-            String token = issueToken(login);
-
+            String token = TokenManagement.generateToken(id);
+            //String token = issueToken(email);
+            logger.info(token);
+            logger.info("edjzehdjezfhozefzefazzaaaa");
             // Return the token on the response
             return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
 
@@ -278,33 +299,92 @@ public class UserRest {
         //return " Vous etes bien connecte en tant que "+ email;
     }
     
-    private void authenticate(String login, String password) throws Exception {
+    private int authenticate(String login, String password) throws Exception {
         
-        /*TypedQuery<User> query = em.createNamedQuery(User.FIND_BY_LOGIN_PASSWORD, User.class);
-        query.setParameter("login", login);
+        /*TypedQuery<UserAccount> query = uamanager.createNamedQuery(UserAccount.FIND_BY_LOGIN_PASSWORD, UserAccount.class);
+        query.setParameter("email", login);
         query.setParameter("password", PasswordUtils.digestPassword(password));
-        User user = query.getSingleResult();*/
+        UserAccount user = query.getSingleResult();*/
         //Get utilisateur correspondant  au login et password
+        int id = 0;
         UserAccount user = uamanager.getUserAccountByLoginPassword(login, password);
-        if (user == null)
+        if (user == null){
             throw new SecurityException("Invalid user/password");
+        }else{
+            id = user.getID();
+        }
+        return id;
     }
     
      private String issueToken(String login) {
-        Key key = keyGenerator.generateKey();
-        String jwtToken;
+        logger.info("avantbug0");
+        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);//keyGenerator.generateKey();
+        //Key key = keyGenerator.generateKey();
+         logger.info("lol");
+        String jwtToken = Encoders.BASE64.encode(key.getEncoded());
+        logger.info(login);
     jwtToken = Jwts.builder()
             .setSubject(login)
             .setIssuer(uriInfo.getAbsolutePath().toString())
             .setIssuedAt(new Date())
             .setExpiration(toDate(LocalDateTime.now().plusMinutes(15L)))
-            .signWith(SignatureAlgorithm.HS512, key)
+            .signWith(key)
             .compact();
-        logger.log(Level.INFO, "#### generating token for a key : {0} - {1}", new Object[]{jwtToken, key});
+         logger.info(jwtToken);
+        //logger.log(Level.INFO, "#### generating token for a key : {0} - {1}", new Object[]{jwtToken, key});
         return jwtToken;
 
     }
      private Date toDate(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
+     
+     /*@GetMapping(value = "/getUserInfoS/{id}", produces = MediaType.APPLICATION_JSON)
+     public String getUserInfo(@RequestBody String body, @RequestHeader HttpHeaders headers) {
+
+        if (!TokenManagement.verifyToken(headers.get("authentificationToken"))) {
+
+              throws new NotAuthorizedException(“Invalid token”);
+
+        }
+        
+         org.json.JSONObject obj = new  org.json.JSONObject();
+        try{
+            UserAccount user = uamanager.getUserAccountById(Integer.parseInt(id));
+            
+            org.json.JSONObject objType = new  org.json.JSONObject();
+            objType.put("id",id);
+            objType.put("type",user.getType().getType());
+            JSONObject objCountry = new JSONObject();
+            //Recherche id country correspondant
+            objCountry.put("id",user.getAddress().getCountry().getID());
+            objCountry.put("country",user.getAddress().getCountry().getCountry());
+
+            org.json.JSONObject objAddress = new  org.json.JSONObject();
+            objAddress.put("id",user.getAddress().getID());
+            objAddress.put("street",user.getAddress().getStreet());
+            objAddress.put("city",user.getAddress().getCity());
+            objAddress.put("state",user.getAddress().getState());
+            objAddress.put("zipCode",user.getAddress().getZipCode());
+            objAddress.put("country",objCountry);
+
+            obj.put("id",user.getID());
+            obj.put("lastName",user.getLastName());
+            obj.put("firstName",user.getFirstName());
+            obj.put("email",user.getEmail());
+            obj.put("password",user.getPassword());
+            obj.put("phoneNumber",user.getPhoneNumber());
+            obj.put("active",user.getActive());
+            obj.put("CreationDate",user.getCreationDate());
+            obj.put("lastModificationDate",user.getLastModificationDate());
+            obj.put("resetPasswordLink",user.getResetPasswordLink());
+            obj.put("resetLinkValidateDate",user.getResetLinkValidateDate());
+            obj.put("isRemoved",user.getIsRemoved());
+            obj.put("type",objType);
+            obj.put("adresse",objAddress);
+        }catch(NumberFormatException | JSONException e){
+            throw new Exception("Cet ID ne correspond à aucun compte dans la base de données");
+        }        
+        return obj.toString(2);
+     }*/
 }
