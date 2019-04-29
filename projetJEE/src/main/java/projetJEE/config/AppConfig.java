@@ -34,8 +34,8 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("projetJEE.domain.repository")
-@javax.ws.rs.ApplicationPath("webresources")
-public class AppConfig extends Application implements WebMvcConfigurer { 
+//@javax.ws.rs.ApplicationPath("webresources")
+public class AppConfig /*extends Application*/ implements WebMvcConfigurer { 
 
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
     private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
@@ -103,12 +103,12 @@ public class AppConfig extends Application implements WebMvcConfigurer {
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
     
-    @Override
+    /*@Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
         addRestResourceClasses(resources);
         return resources;
-    }
+    }*/
 
     /**
      * Do not modify addRestResourceClasses() method.
@@ -116,8 +116,8 @@ public class AppConfig extends Application implements WebMvcConfigurer {
      * all resources defined in the project.
      * If required, comment out calling this method in getClasses().
      */
-    private void addRestResourceClasses(Set<Class<?>> resources) {
+    /*private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(projetJEE.serviceContrats.ShopRest.class);
         resources.add(projetJEE.serviceContrats.UserRest.class);
-    }
+    }*/
 }
