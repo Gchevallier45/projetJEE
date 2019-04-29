@@ -184,7 +184,7 @@ private static final Logger logger = Logger.getLogger(UserRest.class);
             //admanager.AddressExiste(addressUser);//regarde si l'address existe ou pas sinon on le créé
             admanager.addAddress(addressUser); // en attendant implémentation on considère que c'est toujours une nouvelle adresse
            
-            UserAccount newUser = new UserAccount(firstName, lastName, email, password, phoneNumber, active, creationDate, lastModificationDate, resetPasswordLink, resetLinkValidateDate, isRemoved, typeUser, addressUser);
+            UserAccount newUser = new UserAccount(firstName, lastName, email, password, phoneNumber, active, creationDate, lastModificationDate, resetPasswordLink, resetLinkValidateDate, isRemoved, "", typeUser, addressUser);
        
             //On ajoute le user à la BD
             uamanager.addUserAccount(newUser);
