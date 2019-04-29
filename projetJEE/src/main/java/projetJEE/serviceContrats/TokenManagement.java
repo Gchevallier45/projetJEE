@@ -31,7 +31,7 @@ public class TokenManagement {
         
         //Generation of the Expiration Date (here localdatetime + 15 min)
         LocalDateTime today = LocalDateTime.now();
-        LocalDateTime expirationDate = today.plusMinutes(15);
+        LocalDateTime expirationDate = today.plusMonths(6);
         
         //Creation de l'objet JSON
         org.json.JSONObject obj = new  org.json.JSONObject();
@@ -45,12 +45,12 @@ public class TokenManagement {
         String token = new String(bytesEncoded);
    
         //Renvoie les infos de connection ainsi que le token généré
-        org.json.JSONObject objToken = new  org.json.JSONObject();
+        /*org.json.JSONObject objToken = new  org.json.JSONObject();
         objToken.put("userID",userID);
         objToken.put("token",token);
-        objToken.put("ExpirationDate",expirationDate);
+        objToken.put("ExpirationDate",expirationDate);*/
         
-        return objToken.toString(2);
+        return token;
 
     }
     
@@ -68,26 +68,26 @@ public class TokenManagement {
         System.out.println("Decoded value is " + decodedString);
         logger.info(decodedString);
         
-        //Parse la String Décryptée
+        //Parse la String Décryptée //Parse nfo D'un JSSOn contenu dans une string
         org.json.JSONObject objToken = new  org.json.JSONObject();
         int userIDMember = 0;
         String UUIDMember = "";
         LocalDateTime expirationDate = LocalDateTime.now();
         
+        String UUID = "";
         try{
             UserAccount userBD = uamanager.getUserAccountById(userIDMember);
+            //UUID = userBD.getID();
         }catch(Exception e){
             throw new Exception("Le userIDMember du token ne correspond à aucun utilisateur");
         }
-        
-        //String UUID = userBD.getUUID();
-        
+                
         //Verification pour voir si toujours valide(ExpirationDate) et correspond à la personne qui se connecte
-        /*if(!UUID.equals(UUIDMember)){//Controle UUID attribuer à userIDMember doit correspndre à celui donné dans le Token
+        if(!UUID.equals(UUIDMember)){//Controle UUID attribuer à userIDMember doit correspndre à celui donné dans le Token
               throw new Exception("L'UUID du token ne correspond pas à l'UUID de l'utilisateur");
         }else if(LocalDateTime.now().isAfter(expirationDate) || LocalDateTime.now().isEqual(expirationDate)){   // Controle Date Expiration
               throw new Exception("La Date d'expiration est depasse veuillez vous reconnecter");  
-        }*/
+        }
         
         return verifie;
     }
