@@ -70,7 +70,7 @@ public class ShopRest {
         String email= "email@gmail.com";
         String addresshtml ="resetpasswordlink";
         UserAccount user = new UserAccount(name, name, email, name, tel, true, date1, 
-             date1, addresshtml, date1, false, new Type(), new Address());
+             date1, addresshtml, date1, false, "", new Type(), new Address());
  
         //return user.toString();
         /*String lastName= "name";

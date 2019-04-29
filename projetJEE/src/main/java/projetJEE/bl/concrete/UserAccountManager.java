@@ -29,6 +29,13 @@ public class UserAccountManager {
         return this.repo.findById(id).get();
     }
     
+    public void changeUserUUID(int idUser, String newUUID){
+        UserAccount user = getUserAccountById(idUser);
+        user.setUUID(newUUID);
+        this.repo.save(user);
+        this.repo.flush();
+    }
+    
     public boolean userAccountExists(String email){
         logger.info("Entrée dans la fonction userAccountExists");  
         return !this.repo.findByEmail(email).isEmpty();
