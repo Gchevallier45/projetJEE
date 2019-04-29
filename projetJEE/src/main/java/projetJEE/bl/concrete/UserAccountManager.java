@@ -28,12 +28,21 @@ public class UserAccountManager {
         logger.info("Entrée dans la fonction getUserAccountById");
         return this.repo.findById(id).get();
     }
-    
+
     public void changeUserUUID(int idUser, String newUUID){
         UserAccount user = getUserAccountById(idUser);
         user.setUUID(newUUID);
         this.repo.save(user);
         this.repo.flush();
+	}
+
+    public UserAccount getUserAccountByLoginPassword(String login, String password) {
+        logger.info("Entrée dans la fonction getUserAccountByLoginPassword");
+        UserAccount user = new UserAccount();
+        if(!this.repo.findByLoginPass(login, DigestUtils.sha256Hex(password)).isEmpty()){
+            user = this.repo.findByLoginPass(login, DigestUtils.sha256Hex(password)).get(0);
+        }
+        return user;
     }
     
     public boolean userAccountExists(String email){
