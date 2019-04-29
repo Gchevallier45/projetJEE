@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.xml.bind.DatatypeConverter;
 import org.apache.log4j.Logger;
+import projetJEE.bl.concrete.UserAccountManager;
+import projetJEE.models.UserAccount;
 
 /**
  *
@@ -57,7 +59,7 @@ public class TokenManagement {
      * @param token 
      * @return  
      */
-    public static boolean verifyToken(String token){
+    public static boolean verifyToken(String token, UserAccountManager uamanager) throws Exception{
         
         boolean verifie = true;
         
@@ -67,8 +69,25 @@ public class TokenManagement {
         logger.info(decodedString);
         
         //Parse la String Décryptée
+        org.json.JSONObject objToken = new  org.json.JSONObject();
+        int userIDMember = 0;
+        String UUIDMember = "";
+        LocalDateTime expirationDate = LocalDateTime.now();
+        
+        try{
+            UserAccount userBD = uamanager.getUserAccountById(userIDMember);
+        }catch(Exception e){
+            throw new Exception("Le userIDMember du token ne correspond à aucun utilisateur");
+        }
+        
+        //String UUID = userBD.getUUID();
         
         //Verification pour voir si toujours valide(ExpirationDate) et correspond à la personne qui se connecte
+        /*if(!UUID.equals(UUIDMember)){//Controle UUID attribuer à userIDMember doit correspndre à celui donné dans le Token
+              throw new Exception("L'UUID du token ne correspond pas à l'UUID de l'utilisateur");
+        }else if(LocalDateTime.now().isAfter(expirationDate) || LocalDateTime.now().isEqual(expirationDate)){   // Controle Date Expiration
+              throw new Exception("La Date d'expiration est depasse veuillez vous reconnecter");  
+        }*/
         
         return verifie;
     }
