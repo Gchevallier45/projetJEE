@@ -30,6 +30,7 @@ public class UserAccountManager {
     }
 
     public void changeUserUUID(int idUser, String newUUID){
+        logger.info("Entrée dans la fonction changeUserUUID");
         UserAccount user = getUserAccountById(idUser);
         user.setUUID(newUUID);
         this.repo.save(user);
@@ -57,7 +58,6 @@ public class UserAccountManager {
     
     public boolean validateLogin(String login,String password){
         logger.info("Entrée dans la fonction validateLogin");
-        logger.info(DigestUtils.sha256Hex("password"));
         return !this.repo.findByLoginPass(login, DigestUtils.sha256Hex(password)).isEmpty();
     }
     
