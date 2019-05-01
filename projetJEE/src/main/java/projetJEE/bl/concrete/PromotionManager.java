@@ -5,6 +5,7 @@
  */
 package projetJEE.bl.concrete;
 
+import java.util.List;
 import projetJEE.models.Promotion;
 import projetJEE.domain.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class PromotionManager {
     
     public Promotion getPromotionById(int id) {
         return this.repo.findById(id).get();
+    }
+    
+    public List<Promotion> getPromotions() {
+        return this.repo.findAll();
     }
     
     public void addPromotion(Promotion promotion){

@@ -8,6 +8,7 @@ projetJEE\parser\ParserUserInfo.class
 projetJEE\domain\repository\OpeningHourRepository.class
 projetJEE\models\Country.class
 projetJEE\controllers\DefaultController.class
+projetJEE\serviceContrats\ShopRest.class
 projetJEE\bl\concrete\OpeningHourManager.class
 projetJEE\controllers\LoginController.class
 projetJEE\bl\concrete\PromotionManager.class
