@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -16,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.compress.utils.IOUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -75,16 +77,17 @@ import projetJEE.models.UserAccount;
     @RequestMapping(value = "/bddtest", method = RequestMethod.GET)
     public String bddtest(ModelMap map){
         //UserAccount ua = uamanager.getUserAccountById(1);
-        //Address adr = adrmanager.getAddressById(1);
-        //Type typ = typmanager.getTypeById(1);
+        Address adr = adrmanager.getAddressById(1);
+        Type typ = typmanager.getTypeById(1);
         
         //map.put("msg", "BDD test");
         //map.put("userId", ua.getID());
         //map.put("userName", ua.getAddress().getCity());
         
-        //UserAccount ub;
-        //ub = new UserAccount("nom","prenom","email@email.fr","pass","0254879854",true,LocalDate.now(),LocalDate.now(),"mdr",LocalDate.now(),false,typ,adr);
-        //uamanager.addUserAccount(ub);
+        UserAccount ub;
+        String passwordLink = RandomStringUtils.randomAlphanumeric(60);
+        ub = new UserAccount("nom","prenom","email@email.fr","pass","0254879854",true,LocalDate.now(),LocalDate.now(),passwordLink,LocalDate.now(),false,"mdr",typ,adr);
+        uamanager.addUserAccount(ub);
         uamanager.changeUserUUID(1, "camarche");
         
         List<UserAccount> user = uamanager.getAllUsers();
