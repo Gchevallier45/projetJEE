@@ -6,6 +6,9 @@
 package projetJEE.bl.concrete;
 
 import org.apache.log4j.Logger;
+
+import java.util.List;
+
 import projetJEE.models.Promotion;
 import projetJEE.domain.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,10 @@ public class PromotionManager {
     public Promotion getPromotionById(int id) {
         logger.info("Entrée dans la fonction getPromotionById");
         return this.repo.findById(id).get();
+    }
+    
+    public List<Promotion> getPromotions() {
+        return this.repo.findAll();
     }
     
     public void addPromotion(Promotion promotion){

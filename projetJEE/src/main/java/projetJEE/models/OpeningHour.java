@@ -97,4 +97,11 @@ public class OpeningHour implements Serializable {
     public void setIs24h(boolean is24h) {
         this.is24h = is24h;
     }
+
+    @Override
+    public String toString() {
+        return "OpeningHour{" + "name=" + name + ", store=" + store + ", openHour=" + openHour + ", closeHour=" + closeHour + ", isClosed=" + isClosed + ", is24h=" + is24h + '}';
+    }
+    
+    
 }
