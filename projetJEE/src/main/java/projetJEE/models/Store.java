@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
@@ -26,7 +28,7 @@ public class Store implements Serializable {
     public Store(){
     }
     
-    public Store(String keyValue, String name, String phoneNumber, String email, float latitude, float longitude, LocalDate lastModifiedDate, UserAccount lastModifiedBy, Address address, Map<String, OpeningHour> openingHours) {
+    public Store(String keyValue, String name, String phoneNumber, String email, float latitude, float longitude, LocalDate lastModifiedDate, UserAccount lastModifiedBy, Address address, OpeningHour openingHours) {
         this.keyValue = keyValue;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -40,6 +42,8 @@ public class Store implements Serializable {
     }
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
     private int ID;
     
     @Column(name = "KeyValue")
@@ -63,15 +67,14 @@ public class Store implements Serializable {
     @Column(name = "LastModifiedDate")
     private LocalDate lastModifiedDate;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private UserAccount lastModifiedBy;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
     
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="store")
-    @MapKey(name = "name")
-    private Map<String, OpeningHour> openingHours;
+    @OneToOne(cascade = CascadeType.ALL)
+    private OpeningHour openingHours;
     
     public int getID() {
         return ID;
@@ -153,11 +156,11 @@ public class Store implements Serializable {
         this.address = address;
     }
         
-    public Map<String, OpeningHour> getOpeningHours() {
+    public OpeningHour getOpeningHours() {
         return openingHours;
     }
 
-    public void setOpeningHours(Map<String, OpeningHour> openingHours) {
+    public void setOpeningHours(OpeningHour openingHours) {
         this.openingHours = openingHours;
     }
 }

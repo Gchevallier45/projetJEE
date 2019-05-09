@@ -10,6 +10,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -28,10 +30,12 @@ import projetJEE.bl.concrete.StoreManager;
 import projetJEE.bl.concrete.TypeManager;
 import org.springframework.web.bind.annotation.RequestParam;
 import projetJEE.bl.concrete.CountryManager;
+import projetJEE.bl.concrete.OpeningHourManager;
 import projetJEE.bl.concrete.PromotionManager;
 import projetJEE.bl.concrete.UserAccountManager;
 import projetJEE.models.Address;
 import projetJEE.models.Country;
+import projetJEE.models.OpeningHour;
 import projetJEE.models.Promotion;
 import projetJEE.models.Store;
 import projetJEE.models.Type;
@@ -74,34 +78,42 @@ import projetJEE.models.UserAccount;
     CountryManager countrymanager;
     @Resource
     PromotionManager promomanager;
+    @Resource
+    OpeningHourManager oamanager;
     @RequestMapping(value = "/bddtest", method = RequestMethod.GET)
     public String bddtest(ModelMap map){
         //UserAccount ua = uamanager.getUserAccountById(1);
-        Address adr = adrmanager.getAddressById(1);
-        Type typ = typmanager.getTypeById(1);
+        //Address adr = adrmanager.getAddressById(1);
+        //Type typ = typmanager.getTypeById(1);
         
         //map.put("msg", "BDD test");
         //map.put("userId", ua.getID());
         //map.put("userName", ua.getAddress().getCity());
         
-        UserAccount ub;
-        String passwordLink = RandomStringUtils.randomAlphanumeric(60);
-        ub = new UserAccount("nom","prenom","email@email.fr","pass","0254879854",true,LocalDate.now(),LocalDate.now(),passwordLink,LocalDate.now(),false,"mdr",typ,adr);
-        uamanager.addUserAccount(ub);
-        uamanager.changeUserUUID(1, "camarche");
+        //UserAccount ub;
+        //String passwordLink = RandomStringUtils.randomAlphanumeric(60);
+        //ub = new UserAccount("nom","prenom","email@email.fr","pass","0254879854",true,LocalDate.now(),LocalDate.now(),passwordLink,LocalDate.now(),false,"mdr",typ,adr);
+        //uamanager.addUserAccount(ub);
+        //uamanager.changeUserUUID(1, "camarche");
         
         List<UserAccount> user = uamanager.getAllUsers();
         
-        Store store = storemanager.getStoreById(0);
+        Store store = storemanager.getStoreById(1);
         
-        Country country = countrymanager.getCountryByName("France");
+        //Country country = countrymanager.getCountryByName("France");
         
-        Promotion promo = promomanager.getPromotionById(1);
+        //Promotion promo = promomanager.getPromotionById(1);
+        
+        
+        //store.getOpeningHours().setMonOpen(LocalTime.now());        
+        store.getAddress().setStreet("fdpppp");
+        
+        storemanager.addStore(store);
  
         //map.put("userName", user.get(0).getFirstName());
  
         map.put("magasinId",user.get(0).getUUID());
-        map.put("magasinName", store.getOpeningHours().get("Monday").getOpenHour());
+        map.put("magasinName", store.getOpeningHours().getMonOpen());
         map.put("userName",uamanager.validateLogin("coucou@coucou.fr", "password"));
         /*try {
             //trouver utilisateur avec adresse mail

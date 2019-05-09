@@ -13,8 +13,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.json.JsonObject;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -101,10 +103,10 @@ public class UserAccount implements Serializable {
     @Column(name = "UUID")
     private String UUID;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Type type;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Address address;
             
     public UserAccount(JsonObject root) throws ParseException {
