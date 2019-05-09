@@ -23,11 +23,6 @@ public class OpeningHourManager {
         this.repo = uarepo;
     }
     
-    public List<OpeningHour> getOpeningHourByStoreId(int id) {
-        logger.info("Entrée dans la fonction getOpeningHourByStoreId");
-        return this.repo.findByIdStore(id);
-    }
-    
     public void addOpeningHour(OpeningHour openingHour){
         logger.info("Entrée dans la fonction addOpeningHour");
         this.repo.save(openingHour);

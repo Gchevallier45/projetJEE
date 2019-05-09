@@ -7,101 +7,202 @@ package projetJEE.models;
 
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "OpeningHours")
 public class OpeningHour implements Serializable {
-    
-    public OpeningHour(String name, Store store, String openHour, String closeHour, boolean isClosed, boolean is24h) {
-        this.name = name;
-        this.store = store;
-        this.openHour = openHour;
-        this.closeHour = closeHour;
-        this.isClosed = isClosed;
-        this.is24h = is24h;
-    }
-    
+
     public OpeningHour(){
     }
-    
+
+    public OpeningHour(LocalTime sunOpen, LocalTime sunClose, LocalTime monOpen, LocalTime monClose, LocalTime tuesOpen, LocalTime tuesClose, LocalTime wedOpen, LocalTime wedClose, LocalTime thuOpen, LocalTime thuClose, LocalTime friOpen, LocalTime friClose, LocalTime satOpen, LocalTime satClose) {
+        this.sunOpen = sunOpen;
+        this.sunClose = sunClose;
+        this.monOpen = monOpen;
+        this.monClose = monClose;
+        this.tuesOpen = tuesOpen;
+        this.tuesClose = tuesClose;
+        this.wedOpen = wedOpen;
+        this.wedClose = wedClose;
+        this.thuOpen = thuOpen;
+        this.thuClose = thuClose;
+        this.friOpen = friOpen;
+        this.friClose = friClose;
+        this.satOpen = satOpen;
+        this.satClose = satClose;
+    }
+
     @Id
-    @Column(name = "Name")
-    private String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private int ID;
 
-    @ManyToOne
-    @PrimaryKeyJoinColumn
-    private Store store;
-    
-    @Column(name = "OpenHour")
-    private String openHour;
+    @Column(name = "SunOpen")
+    private LocalTime sunOpen;
 
-    @Column(name = "CloseHour")
-    private String closeHour;
-    
-    @Column(name = "IsClosed")
-    private boolean isClosed;
-    
-    @Column(name = "Is24h")
-    private boolean is24h;
+    @Column(name = "SunClose")
+    private LocalTime sunClose;
 
-    public String getName() {
-        return name;
+    @Column(name = "MonOpen")
+    private LocalTime monOpen;
+
+    @Column(name = "MonClose")
+    private LocalTime monClose;
+
+    @Column(name = "TuesOpen")
+    private LocalTime tuesOpen;
+
+    @Column(name = "TuesClose")
+    private LocalTime tuesClose;
+
+    @Column(name = "WedOpen")
+    private LocalTime wedOpen;
+
+    @Column(name = "WedClose")
+    private LocalTime wedClose;
+
+    @Column(name = "ThuOpen")
+    private LocalTime thuOpen;
+
+    @Column(name = "ThuClose")
+    private LocalTime thuClose;
+
+    @Column(name = "FriOpen")
+    private LocalTime friOpen;
+
+    @Column(name = "FriClose")
+    private LocalTime friClose;
+
+    @Column(name = "SatOpen")
+    private LocalTime satOpen;
+
+    @Column(name = "SatClose")
+    private LocalTime satClose;
+
+    public int getID() {
+        return ID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
-    public Store getStore() {
-        return store;
+    public LocalTime getSunOpen() {
+        return sunOpen;
     }
 
-    public void setStore(Store store) {
-        this.store = store;
+    public void setSunOpen(LocalTime sunOpen) {
+        this.sunOpen = sunOpen;
     }
 
-    public String getOpenHour() {
-        return openHour;
+    public LocalTime getSunClose() {
+        return sunClose;
     }
 
-    public void setOpenHour(String openHour) {
-        this.openHour = openHour;
+    public void setSunClose(LocalTime sunClose) {
+        this.sunClose = sunClose;
     }
 
-    public String getCloseHour() {
-        return closeHour;
+    public LocalTime getMonOpen() {
+        return monOpen;
     }
 
-    public void setCloseHour(String closeHour) {
-        this.closeHour = closeHour;
+    public void setMonOpen(LocalTime monOpen) {
+        this.monOpen = monOpen;
     }
 
-    public boolean isIsClosed() {
-        return isClosed;
+    public LocalTime getMonClose() {
+        return monClose;
     }
 
-    public void setIsClosed(boolean isClosed) {
-        this.isClosed = isClosed;
+    public void setMonClose(LocalTime monClose) {
+        this.monClose = monClose;
     }
 
-    public boolean isIs24h() {
-        return is24h;
+    public LocalTime getTuesOpen() {
+        return tuesOpen;
     }
 
-    public void setIs24h(boolean is24h) {
-        this.is24h = is24h;
+    public void setTuesOpen(LocalTime tuesOpen) {
+        this.tuesOpen = tuesOpen;
     }
 
-    @Override
-    public String toString() {
-        return "OpeningHour{" + "name=" + name + ", store=" + store + ", openHour=" + openHour + ", closeHour=" + closeHour + ", isClosed=" + isClosed + ", is24h=" + is24h + '}';
+    public LocalTime getTuesClose() {
+        return tuesClose;
     }
-    
-    
+
+    public void setTuesClose(LocalTime tuesClose) {
+        this.tuesClose = tuesClose;
+    }
+
+    public LocalTime getWedOpen() {
+        return wedOpen;
+    }
+
+    public void setWedOpen(LocalTime wedOpen) {
+        this.wedOpen = wedOpen;
+    }
+
+    public LocalTime getWedClose() {
+        return wedClose;
+    }
+
+    public void setWedClose(LocalTime wedClose) {
+        this.wedClose = wedClose;
+    }
+
+    public LocalTime getThuOpen() {
+        return thuOpen;
+    }
+
+    public void setThuOpen(LocalTime thuOpen) {
+        this.thuOpen = thuOpen;
+    }
+
+    public LocalTime getThuClose() {
+        return thuClose;
+    }
+
+    public void setThuClose(LocalTime thuClose) {
+        this.thuClose = thuClose;
+    }
+
+    public LocalTime getFriOpen() {
+        return friOpen;
+    }
+
+    public void setFriOpen(LocalTime friOpen) {
+        this.friOpen = friOpen;
+    }
+
+    public LocalTime getFriClose() {
+        return friClose;
+    }
+
+    public void setFriClose(LocalTime friClose) {
+        this.friClose = friClose;
+    }
+
+    public LocalTime getSatOpen() {
+        return satOpen;
+    }
+
+    public void setSatOpen(LocalTime satOpen) {
+        this.satOpen = satOpen;
+    }
+
+    public LocalTime getSatClose() {
+        return satClose;
+    }
+
+    public void setSatClose(LocalTime satClose) {
+        this.satClose = satClose;
+    }
 }

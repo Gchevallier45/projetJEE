@@ -8,6 +8,7 @@ package projetJEE.models;
 import java.io.Serializable;
 import java.text.ParseException;
 import javax.json.JsonObject;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,7 +50,7 @@ public class Address implements Serializable {
     @Column(name = "ZipCode")
     private String zipCode;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Country country;
     
     public Address(JsonObject jsonObject) throws ParseException {
