@@ -245,6 +245,11 @@ public class UserAccount implements Serializable {
         this.address = address;
     }
     
+    public void requestPasswordReset(){
+        this.setResetPasswordLink(RandomStringUtils.randomAlphanumeric(60));
+        this.setResetLinkValidateDate(LocalDate.now().plusMonths(6));
+    }
+    
      @Override
     public String toString() {
         return "UserAccount{" +

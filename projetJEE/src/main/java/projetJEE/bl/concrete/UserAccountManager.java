@@ -23,7 +23,7 @@ public class UserAccountManager {
     public UserAccountManager(UserAccountRepository uarepo) {
         this.repo = uarepo;
     }
-    
+
     public UserAccount getUserAccountById(int id) {
         logger.info("Entrée dans la fonction getUserAccountById");
         return this.repo.findById(id).get();
