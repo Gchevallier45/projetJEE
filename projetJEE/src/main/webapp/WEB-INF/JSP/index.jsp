@@ -16,7 +16,7 @@
          
          <section class="container">
             <h1>Home Page</h1>
-            
+            <%@include file="messageErreur.jsp" %>
             <div class="col-sm-12 col-md-5">
                 <img src="${cp}/resources/img/welecome.jpg" alt="Logo" class="img-fluid">
           </div>

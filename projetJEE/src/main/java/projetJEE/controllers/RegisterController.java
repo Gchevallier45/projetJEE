@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,7 @@ import projetJEE.bl.concrete.*;
 import projetJEE.models.*;
 
 @Controller public class RegisterController {
-    private static final Logger logger = Logger.getLogger(DefaultController.class);
+    private static final Logger logger = Logger.getLogger(RegisterController.class);
     @Resource
     UserAccountManager uamanager;
     @Resource
@@ -40,6 +41,7 @@ import projetJEE.models.*;
     }
     
     @RequestMapping(value="/Register",method=RequestMethod.POST)
+    @Transactional
   public String register(HttpServletRequest request,HttpServletResponse response,HttpSession session,
           @RequestParam(value="firstName", required=false) String firstName, 
           @RequestParam(value="lastName", required=false) String lastName,
@@ -133,17 +135,13 @@ import projetJEE.models.*;
             // add a new adress
             Address address = new Address(street, city, state, zipCode, objtCountry);
             adrmanager.addAddress(address);
-
+            
             Type type = typeManager.getTypeByName("client");
-
             // add user account
             LocalDate now = LocalDate.now();
-            System.out.println("Before add account");
-            UserAccount newUser = new UserAccount(firstName, lastName, email, password, phoneNumber, false, now, now, "fff", null, false, "",type, address);
-            
-           System.out.println("After create object");
+            UserAccount newUser = new UserAccount(firstName, lastName, email, password, phoneNumber, false, now, now, "", null, false, "",type, address);
             uamanager.addUserAccount(newUser);
-System.out.println("After add account");
+            request.setAttribute("success", "You user account has been created successfully");
            return "index"; 
             
         } catch(Exception e) {

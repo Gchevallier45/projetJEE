@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -73,6 +74,7 @@ import projetJEE.models.*;
     }
     
     @RequestMapping(value = "/AddStore", method = RequestMethod.POST)
+    @Transactional
     public String AddStorePOST(HttpServletRequest request,HttpServletResponse response,HttpSession session,
           @RequestParam(value="name", required=false) String name, 
           @RequestParam(value="email", required=false) String email,
@@ -87,35 +89,29 @@ import projetJEE.models.*;
             if(verificationStoreInformations(request)) {
                  // get country if exist
                  logger.info("Début");
-                Country objtCountry = countryManager.getCountryByName(country);
+                /*Country objtCountry = countryManager.getCountryByName(country);
                 if(objtCountry == null) // so add country
                 {
                     objtCountry = new Country(country);
-                    countryManager.addCountry(objtCountry);
-                }
-                
+                    //countryManager.addCountry(objtCountry);
+                }*/
+                Country objtCountry = new Country(country);
                 logger.info("Country");
                  // add a new adress
                 Address address = new Address(street, city, state, zipCode, objtCountry);
-                adrmanager.addAddress(address);
+                //adrmanager.addAddress(address);
                 logger.info("Address");
                 LocalDate now = LocalDate.now();
-                logger.info("storeName:"+storeName);
-                logger.info("phoneNumber:"+phoneNumber);
-                logger.info("email:"+email);
-                logger.info("address:"+address);
+
                 
-                logger.info("latitude:"+latitude);
-                logger.info("longitude:"+longitude);
-                logger.info("latitude:"+Float.parseFloat(latitude));
-                logger.info("longitude:"+Float.parseFloat(longitude));
-                
-                
-                Store store = new Store("key_65464", storeName, phoneNumber, email, Float.parseFloat(latitude), Float.parseFloat(longitude), now, uamanager.getUserAccountById(1), address, null);
+                OpeningHour openingHour = new OpeningHour(LocalTime.now(), LocalTime.now(), LocalTime.now(), LocalTime.now(), LocalTime.now(), LocalTime.now(), LocalTime.now(), LocalTime.now(), LocalTime.now(), LocalTime.now(), LocalTime.now(), LocalTime.now(), LocalTime.now(), LocalTime.now());
+                Store store = new Store("key_65464", storeName, phoneNumber, email, Float.parseFloat(latitude), Float.parseFloat(longitude), now, null, address, openingHour);
                 storeManager.addStore(store);
 
                  logger.info("Store IIIIIIIIIIIDDDDDDDDDDDDDDD : "+store.getID());
-                Map<String, OpeningHour> OpeningHours= new HashMap();
+               // Map<String, OpeningHour> OpeningHours= new HashMap();
+                //storeManager.addStore(store);
+                 
                 /*
                 OpeningHour openingHour1 = new OpeningHour("Monday", store, "10:10", "18:00", false, false);
                 OpeningHour openingHour2 = new OpeningHour("Tuesday", store, "10:10", "18:00", false, false);
@@ -140,10 +136,10 @@ import projetJEE.models.*;
                 OpeningHours.put("Friday", openingHour5);
                 OpeningHours.put("Saturday", openingHour6);
                 OpeningHours.put("Sunday", openingHour7);
+                */
+
                 
-                store.setOpeningHours(OpeningHours);
-                storeManager.addStore(store);
-*/
+
                 /*
                  // opening hours
                  for(int indiceDay = 0; indiceDay < 7; indiceDay++) {
