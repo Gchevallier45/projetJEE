@@ -37,7 +37,7 @@ import projetJEE.models.UserAccount;
         return "login";    
     }
     
- @RequestMapping(value="/login",method=RequestMethod.POST)
+ @RequestMapping(value="/Login",method=RequestMethod.POST)
   public String login(HttpServletRequest request,HttpServletResponse response,HttpSession session,
           @RequestParam(value="email", required=false) String email, 
           @RequestParam(value="password", required=false) String password,

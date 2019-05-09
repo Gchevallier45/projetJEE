@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\controllers\LoginController.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\controllers\LogoutController.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\models\Address.java
@@ -37,3 +38,42 @@ C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\Op
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\PromotionRest.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\controllers\RegisterController.java
 C:\projects\projetJEE\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\JWTTokenNeededFilter.java
+=======
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\AddressManager.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\OpeningHour.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\Device.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\TypeRepository.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\JwTokenHelper.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\CountryManager.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\UserAccount.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\OpeningHourManager.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\UserAccountRepository.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\StoreManager.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\controllers\LogoutController.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\controllers\LoginController.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\StoreRepository.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\PromotionManager.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\controllers\RegisterController.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\AddressRepository.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\UserRest.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\TypeManager.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\UserAccountManager.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\AuthorizationResponse.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\Address.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\PromotionRepository.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\Type.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\parser\ParserUserInfo.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\Verifications.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\CountryRepository.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\Store.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\BaseResponse.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\controllers\StoreController.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\OpeningHourRepository.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\config\WebInitializer.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\ShopRest.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\controllers\DefaultController.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\Promotion.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\Country.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\config\AppConfig.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\DeviceCollectionResponse.java
+>>>>>>> remi

@@ -39,7 +39,7 @@ import projetJEE.models.*;
         return "registerPage";    
     }
     
-    @RequestMapping(value="/register",method=RequestMethod.POST)
+    @RequestMapping(value="/Register",method=RequestMethod.POST)
   public String register(HttpServletRequest request,HttpServletResponse response,HttpSession session,
           @RequestParam(value="firstName", required=false) String firstName, 
           @RequestParam(value="lastName", required=false) String lastName,
@@ -56,21 +56,6 @@ import projetJEE.models.*;
       
         logger.info("Accès à la page de register. POST");
 
-        /* 
-        var:
-        firstName
-        lastName
-        email
-        password
-        password2
-        phoneNumber
-        street
-        city
-        zipCode
-        state
-        country
-        */
-        
         try {
 
             if(firstName == null || firstName.isEmpty()) {
