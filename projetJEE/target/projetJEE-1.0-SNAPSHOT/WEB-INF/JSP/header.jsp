@@ -57,7 +57,7 @@
     <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("HomePage")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>">Home Page</a>
   </li>
   <li class="nav-item">
-    <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("Page_2")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>#Page_2">Page 2</a>
+    <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("AddStore")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>/AddStore">Add Store</a>
   </li>
   <li class="nav-item">
     <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("Page_3")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>#Page_3">Page 3</a>

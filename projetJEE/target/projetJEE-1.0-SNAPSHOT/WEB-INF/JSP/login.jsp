@@ -19,7 +19,7 @@
            
            <%@include file="messageErreur.jsp" %>
             
-            <form action="login" method="POST">
+            <form action="Login" method="POST">
                 <!-- email -->
                 <div class="form-group">
                   <label for="email">Email address</label>

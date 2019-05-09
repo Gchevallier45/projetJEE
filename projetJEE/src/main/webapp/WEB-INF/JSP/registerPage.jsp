@@ -21,7 +21,7 @@
             
             <%@include file="messageErreur.jsp" %>
             
-            <form action="register" method="POST">
+            <form action="Register" method="POST">
                 <div class="formTitle col-sm-12 col-md-12 col-lg-12">
                     <h2>General Information</h2>
                 </div>
@@ -99,7 +99,6 @@
                       <input type="text" class="form-control" id="inputZip" placeholder="France" name="country" <% if(request.getAttribute("country") != null) { out.println("value='"+request.getAttribute("country")+"'"); }%>>
                     </div>
                 </div>
-
                 <p class="text-right"><button type="submit" class="btn btn-primary " >Register</button></p>
             </form>
 
