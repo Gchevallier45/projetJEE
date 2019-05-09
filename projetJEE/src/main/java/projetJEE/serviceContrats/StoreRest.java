@@ -6,6 +6,7 @@
 package projetJEE.serviceContrats;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import projetJEE.bl.concrete.UserAccountManager;
 import projetJEE.models.UserAccount;
@@ -54,6 +55,7 @@ public class StoreRest {
         return content + " Data store have been saved!";
     }
 
+    
     @GetMapping(value = "/getStoreInfo/{id}", produces = MediaType.APPLICATION_JSON)
     public String getStoreInfo(@PathVariable("id") String id) throws Exception {
         org.json.JSONObject obj = new  org.json.JSONObject();     
@@ -61,71 +63,23 @@ public class StoreRest {
             Store shop = stmanager.getStoreById(Integer.parseInt(id));
               
             //OpeningHour
-            List<OpeningHour> ListOpeningHours = ophmanager.getOpeningHourByStoreId(Integer.parseInt(id));
-                       
+            org.json.JSONObject objMonday = shop.getJsonOpeningDayObject(shop.getOpeningHours().getMonOpen(), shop.getOpeningHours().getMonClose());
+            org.json.JSONObject objTuesday = shop.getJsonOpeningDayObject(shop.getOpeningHours().getTuesOpen(), shop.getOpeningHours().getTuesClose());
+            org.json.JSONObject objWednesday = shop.getJsonOpeningDayObject(shop.getOpeningHours().getWedOpen(), shop.getOpeningHours().getWedClose());
+            org.json.JSONObject objThursday = shop.getJsonOpeningDayObject(shop.getOpeningHours().getThuOpen(), shop.getOpeningHours().getThuClose());
+            org.json.JSONObject objFriday = shop.getJsonOpeningDayObject(shop.getOpeningHours().getFriOpen(), shop.getOpeningHours().getFriClose());
+            org.json.JSONObject objSaturday = shop.getJsonOpeningDayObject(shop.getOpeningHours().getSatOpen(), shop.getOpeningHours().getSatClose());
+            org.json.JSONObject objSunday = shop.getJsonOpeningDayObject(shop.getOpeningHours().getSunOpen(), shop.getOpeningHours().getSunClose());
+            
+            //Construction de l'objet OpeningHours
             org.json.JSONObject objOpeningHours = new  org.json.JSONObject();
-            org.json.JSONObject objMonday = new  org.json.JSONObject();
-            org.json.JSONObject objTueday = new  org.json.JSONObject();
-            org.json.JSONObject objWednesday = new  org.json.JSONObject();
-            org.json.JSONObject objThursday = new  org.json.JSONObject();
-            org.json.JSONObject objFriday = new  org.json.JSONObject();
-            org.json.JSONObject objSaturday = new  org.json.JSONObject();
-            org.json.JSONObject objSunday = new  org.json.JSONObject();
-            for(OpeningHour day : ListOpeningHours){
-                switch(day.getName()) {
-                    case "Monday":
-                    objMonday.put("From",day.getOpenHour());
-                    objMonday.put("To",day.getCloseHour());
-                    objMonday.put("24h",day.isIs24h());
-                    objMonday.put("Close",day.isIsClosed());
-                    objOpeningHours.put("Monday",objMonday);
-                    break;
-                    case "Tuesday":
-                    objTueday.put("From",day.getOpenHour());
-                    objTueday.put("To",day.getCloseHour());
-                    objTueday.put("24h",day.isIs24h());
-                    objTueday.put("Close",day.isIsClosed());
-                    objOpeningHours.put("Tuesday",objTueday);    
-                    break;
-                    case "Wednesday":
-                    objWednesday.put("From",day.getOpenHour());
-                    objWednesday.put("To",day.getCloseHour());
-                    objWednesday.put("24h",day.isIs24h());
-                    objWednesday.put("Close",day.isIsClosed());
-                    objOpeningHours.put("Wednesday",objWednesday);    
-                    break;
-                    case "Thursday":
-                    objThursday.put("From",day.getOpenHour());
-                    objThursday.put("To",day.getCloseHour());
-                    objThursday.put("24h",day.isIs24h());
-                    objThursday.put("Close",day.isIsClosed());
-                    objOpeningHours.put("Thursday",objThursday);    
-                    break;
-                    case "Friday":
-                    objFriday.put("From",day.getOpenHour());
-                    objFriday.put("To",day.getCloseHour());
-                    objFriday.put("24h",day.isIs24h());
-                    objFriday.put("Close",day.isIsClosed());
-                    objOpeningHours.put("Friday",objFriday);    
-                    break;
-                    case "Saturday":
-                    objSaturday.put("From",day.getOpenHour());
-                    objSaturday.put("To",day.getCloseHour());
-                    objSaturday.put("24h",day.isIs24h());
-                    objSaturday.put("Close",day.isIsClosed());
-                    objOpeningHours.put("Saturday",objSaturday);    
-                    break;
-                    case "Sunday":
-                    objSunday.put("From",day.getOpenHour());
-                    objSunday.put("To",day.getCloseHour());
-                    objSunday.put("24h",day.isIs24h());
-                    objSunday.put("Close",day.isIsClosed());
-                    objOpeningHours.put("Sunday",objSunday); 
-                    break;
-                    
-                    default:
-                }
-            }
+            objOpeningHours.put("Sunday",objSunday);
+            objOpeningHours.put("Monday",objMonday);
+            objOpeningHours.put("Tuesday",objTuesday);
+            objOpeningHours.put("Wednesday",objWednesday);
+            objOpeningHours.put("Thursday",objThursday);
+            objOpeningHours.put("Friday",objFriday);
+            objOpeningHours.put("Saturday",objSaturday);
             
             logger.info(objOpeningHours.toString());
             

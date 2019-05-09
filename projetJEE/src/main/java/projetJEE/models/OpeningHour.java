@@ -205,4 +205,29 @@ public class OpeningHour implements Serializable {
     public void setSatClose(LocalTime satClose) {
         this.satClose = satClose;
     }
+    
+    public boolean isClosed(LocalTime OpenHour, LocalTime CloseHour){
+        boolean closed = false;
+        
+        LocalTime midnight = LocalTime.MIDNIGHT;
+        
+        if(OpenHour.equals(midnight) && CloseHour.equals(midnight)){
+            closed = true;
+        }
+        
+        return closed;
+    }
+    
+    public boolean isOpen24H(LocalTime OpenHour, LocalTime CloseHour){
+        boolean Opened24H = false;
+        
+        LocalTime midnight = LocalTime.MIDNIGHT;
+        LocalTime closedHour = LocalTime.parse("23:59:59");
+        
+        if(OpenHour.equals(midnight) && CloseHour.equals(closedHour)){
+            Opened24H = true;
+        }
+        
+        return Opened24H;
+    }
 }

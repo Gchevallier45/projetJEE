@@ -167,9 +167,8 @@ private static final Logger logger = Logger.getLogger(UserRest.class);
             }
             
             //Cherche si address Existe
-             Address addressUser = new Address(address, city, state, zipCode, countryUser);
-            //admanager.AddressExiste(addressUser);//regarde si l'address existe ou pas sinon on le créé
-            admanager.addAddress(addressUser); // en attendant implémentation on considère que c'est toujours une nouvelle adresse
+            Address addressUser = new Address(address, city, state, zipCode, countryUser);
+            admanager.addAddress(addressUser); // on considère que c'est toujours une nouvelle adresse
             UserAccount newUser = new UserAccount(firstName, lastName, email, password, phoneNumber, active, creationDate, lastModificationDate, resetPasswordLink, resetLinkValidateDate, isRemoved, "", typeUser, addressUser);
        
             //On ajoute le user à la BD
@@ -192,7 +191,7 @@ private static final Logger logger = Logger.getLogger(UserRest.class);
     @RequestMapping(value = "/authorizationService", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
     public String authorizationService(@QueryParam("email") String email, @QueryParam("password") String password) throws Exception {
        
-        //try{
+        
             if (email.isEmpty()){
                 System.out.println("email field cannot be empty!");
                 return "email field cannot be empty!";
@@ -211,9 +210,6 @@ private static final Logger logger = Logger.getLogger(UserRest.class);
                     throw new Exception("L acces a la base de donnee n est pas possible");
                 } 
             }
-        /*}catch(Exception e){
-            throw new Exception("L authentification n a pa pu se faire");
-        } */
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)

@@ -45,12 +45,6 @@ public class TokenManagement {
         byte[] bytesEncoded = Base64.encodeBase64(obj.toString().getBytes());
         System.out.println("encoded value is " + new String(bytesEncoded));
         String token = new String(bytesEncoded);
-   
-        //Renvoie les infos de connection ainsi que le token généré
-        /*org.json.JSONObject objToken = new  org.json.JSONObject();
-        objToken.put("userID",userID);
-        objToken.put("token",token);
-        objToken.put("ExpirationDate",expirationDate);*/
         
         return token;
 
