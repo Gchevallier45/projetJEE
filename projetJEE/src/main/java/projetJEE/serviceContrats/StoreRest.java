@@ -53,8 +53,8 @@ public class StoreRest {
     public String putJson(@RequestBody String content) {
         return content + " Data store have been saved!";
     }
- /*
-    @GetMapping(value = "/getStoreInfo/{id}", produces = MediaType.APPLICATION_JSON)
+
+    /*@GetMapping(value = "/getStoreInfo/{id}", produces = MediaType.APPLICATION_JSON)
     public String getStoreInfo(@PathVariable("id") String id) throws Exception {
         org.json.JSONObject obj = new  org.json.JSONObject();     
         try{

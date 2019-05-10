@@ -21,7 +21,7 @@ public class AddressManager {
     public AddressManager(AddressRepository uarepo) {
         this.repo = uarepo;
     }
-    
+
     public Address getAddressById(int id) {
         logger.info("Entrée dans la fonction getAddressById");
         return this.repo.findById(id).get();

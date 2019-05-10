@@ -22,6 +22,7 @@ import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod; 
@@ -81,9 +82,8 @@ import projetJEE.models.UserAccount;
     @Resource
     OpeningHourManager oamanager;
     @RequestMapping(value = "/bddtest", method = RequestMethod.GET)
+    @Transactional
     public String bddtest(ModelMap map){
-        //UserAccount ua = uamanager.getUserAccountById(1);
-        //Address adr = adrmanager.getAddressById(1);
         //Type typ = typmanager.getTypeById(1);
         
         //map.put("msg", "BDD test");
@@ -96,23 +96,26 @@ import projetJEE.models.UserAccount;
         //uamanager.addUserAccount(ub);
         //uamanager.changeUserUUID(1, "camarche");
         
-        List<UserAccount> user = uamanager.getAllUsers();
-        
-        Store store = storemanager.getStoreById(1);
-        
-        //Country country = countrymanager.getCountryByName("France");
-        
+        //List<UserAccount> user = uamanager.getAllUsers();
+        UserAccount ua = uamanager.getUserAccountById(1);
+        ua.requestPasswordReset();
+        Address adr = adrmanager.getAddressById(1);
+        //Store store = storemanager.getStoreById(5);
+        Store store = new Store("", "", "", "", 0, 0, LocalDate.now(), null, null, new OpeningHour(LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now()));//storemanager.getStoreById(1);
+        //store.getOpeningHours().setMonOpen(LocalTime.now());
+        store.setAddress(adr);
+        store.setLastModifiedBy(ua);
+        storemanager.addStore(store);
         //Promotion promo = promomanager.getPromotionById(1);
         
         
         //store.getOpeningHours().setMonOpen(LocalTime.now());        
-        store.getAddress().setStreet("fdpppp");
+        //store.getAddress().setStreet("fdpppp");
         
-        storemanager.addStore(store);
  
         //map.put("userName", user.get(0).getFirstName());
  
-        map.put("magasinId",user.get(0).getUUID());
+        //map.put("magasinId",user.get(0).getUUID());
         map.put("magasinName", store.getOpeningHours().getMonOpen());
         map.put("userName",uamanager.validateLogin("coucou@coucou.fr", "password"));
         /*try {
