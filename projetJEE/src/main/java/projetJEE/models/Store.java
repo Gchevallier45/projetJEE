@@ -7,6 +7,7 @@ package projetJEE.models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Map;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -162,5 +163,16 @@ public class Store implements Serializable {
 
     public void setOpeningHours(OpeningHour openingHours) {
         this.openingHours = openingHours;
+    }
+    
+    public org.json.JSONObject getJsonOpeningDayObject(LocalTime openingHour, LocalTime closedHour) {
+         org.json.JSONObject jsonObj = new  org.json.JSONObject();
+         
+         jsonObj.put("From",openingHour);
+         jsonObj.put("To",closedHour);
+         jsonObj.put("Close",this.getOpeningHours().isClosed(openingHour,closedHour));
+         jsonObj.put("24H",this.getOpeningHours().isOpen24H(openingHour,closedHour));     
+         
+         return jsonObj;
     }
 }
