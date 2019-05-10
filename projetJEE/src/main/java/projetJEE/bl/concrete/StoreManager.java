@@ -34,6 +34,12 @@ public class StoreManager {
         this.repo.flush();
     }
     
+    public void removeStore(Store store){
+        logger.info("Entrée dans la fonction addStore");
+        this.repo.delete(store);
+        this.repo.flush();
+    }
+    
     public List<Store> getAll(){
         logger.info("Entrée dans la fonction getAll");
         return this.repo.getAll();

@@ -99,6 +99,12 @@
                       <input type="text" class="form-control" id="inputZip" placeholder="France" name="country" <% if(request.getAttribute("country") != null) { out.println("value='"+request.getAttribute("country")+"'"); }%>>
                     </div>
                 </div>
+                    
+                <select id="type" name="type" class="custom-select mr-sm-2 col-sm-6">
+                    <option value="2"  <% if(request.getAttribute("type") != null && request.getAttribute("type").equals(2)) { out.println("selected"); }%> >Owner</option>
+                    <option value="1"  <% if(request.getAttribute("type") != null && request.getAttribute("type").equals(1)) { out.println("selected"); }%> >Client</option>
+                </select>
+                <br/>
                 <p class="text-right"><button type="submit" class="btn btn-primary " >Register</button></p>
             </form>
 

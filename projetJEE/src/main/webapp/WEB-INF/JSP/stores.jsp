@@ -6,7 +6,7 @@
     <head>
         <%@include file="head.jsp" %>
         <title>Home Page</title>
-         
+        <link rel="stylesheet" type="text/css" href="${cp}/resources/css/stores.css" />  
     </head>     
     <body>
          <%@include file="header.jsp" %>
@@ -16,7 +16,7 @@
             
             <%@include file="messageErreur.jsp" %>
             
-            <div class="col-sm-6">
+            <div class="col-sm-8">
             <%
                 
             if(request.getAttribute("stores")!=null) {
@@ -99,6 +99,14 @@
                                 </tr>
                             </table>
                         </div>
+                        <% 
+                            
+                         if( (session.getAttribute("userStatus") != null && session.getAttribute("userStatus").equals("Owner")) && 
+                            (session.getAttribute("userId") != null && (session.getAttribute("userId")).equals(store.getLastModifiedBy().getID()))){ %>
+                        <div class="actionsOnStore">
+                            <button type="button" class="btn btn-info" onclick="document.location.href='${cp}/UpdateStore?storeId=<%= store.getID() %>'">Modifier</button> <button type="button" class="btn btn-warning"   onclick="removeStore(<%= store.getID() %>, <%= store.getName() %>);">Supprimer</button>
+                        </div>
+                        <% } %>
                     </div>
                                 
 
@@ -118,3 +126,12 @@
          <%@include file="footer.jsp" %>
     </body> 
 </html>
+
+<script>
+    
+    function removeStore(storeId, storeName) {
+        if(confirm("Do you want to delete the store '"+storeName+"'?");)
+            document.location.href="${cp}/DeleteStore?storeId=storeId)"";
+    }
+    
+</script>

@@ -48,7 +48,7 @@ public class UserAccountManager {
     
     public boolean userAccountExists(String email){
         logger.info("Entrée dans la fonction userAccountExists");  
-        return !this.repo.findByEmail(email).isEmpty();
+        return !(this.repo.findByEmail(email) == null);
     }
     
     public List<UserAccount> getAllUsers(){
@@ -65,6 +65,11 @@ public class UserAccountManager {
         logger.info("Entrée dans la fonction addUserAccount");
         this.repo.save(account);
         this.repo.flush();
+    }
+    
+    public UserAccount getByEmail(String email){
+        logger.info("Entrée dans la fonction getByEmail");
+        return this.repo.findByEmail(email);
     }
 
 }

@@ -54,6 +54,7 @@ import projetJEE.models.*;
           @RequestParam(value="zipCode", required=false) String zipCode,
           @RequestParam(value="state", required=false) String state,
           @RequestParam(value="country", required=false) String country,
+          @RequestParam(value="type", required=false) int indiceType,
           ModelMap map){
       
         logger.info("Accès à la page de register. POST");
@@ -132,11 +133,15 @@ import projetJEE.models.*;
                 countryManager.addCountry(objtCountry);
             }
             
+            // if it's not an owner or a client, then by default it's a client
+             if(indiceType != 3 && indiceType != 2)
+                indiceType = 3;
+
             // add a new adress
             Address address = new Address(street, city, state, zipCode, objtCountry);
             adrmanager.addAddress(address);
             
-            Type type = typeManager.getTypeByName("client");
+            Type type = typeManager.getTypeById(indiceType);
             // add user account
             LocalDate now = LocalDate.now();
             UserAccount newUser = new UserAccount(firstName, lastName, email, password, phoneNumber, false, now, now, "", null, false, "",type, address);
@@ -154,6 +159,7 @@ import projetJEE.models.*;
                 request.setAttribute("zipCode", zipCode);
                 request.setAttribute("state", state);
                 request.setAttribute("country", country);
+                request.setAttribute("type", indiceType);
                 
                 request.setAttribute("erreur", e.getMessage());
                 logger.info("Connexion refusé");

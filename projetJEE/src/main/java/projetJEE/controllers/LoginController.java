@@ -51,14 +51,17 @@ import projetJEE.models.UserAccount;
                     throw new Exception("L'adresse mail ou le mot de passe est null");
             }
             
-            List<UserAccount> user = uamanager.getAllUsers();
-            
             if(uamanager.validateLogin(email, password))
             {
-                    // la connexion est établie
-                    session.setAttribute("user", email);
-                    logger.info("La connexion est établie en tant que " + email);
-                    return "index"; 
+                UserAccount user = uamanager.getByEmail(email);
+                // la connexion est établie
+                session.setAttribute("userId", user.getID());
+                session.setAttribute("userEmail", user.getEmail());
+                session.setAttribute("userLastName", user.getLastName());
+                session.setAttribute("userFirstName", user.getFirstName());
+                session.setAttribute("userStatus", user.getType().getType());
+                logger.info("La connexion est établie en tant que " + user.getFirstName() +" "+ user.getLastName()+'('+email+")");
+                return "index"; 
             }
             else
             {

@@ -77,21 +77,64 @@ import projetJEE.models.*;
     }
     
     @RequestMapping(value = "/AddStore", method = RequestMethod.GET)
-    public String AddStore(ModelMap map, HttpServletRequest request) {
+    public String AddStore(ModelMap map, HttpServletRequest request, HttpSession session) {
         logger.info("Entry in AddStore");
-        request.setAttribute("activePage","AddStore");
-        map.put("title", "Add Store");
-        map.put("actionForm", "AddStore");
-        logger.info("Exit AddStore");
-        return "storeEdition";    
+        try {
+            if(session.getAttribute("userStatus") == null || !session.getAttribute("userStatus").equals("Owner"))
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner.");
+            
+            request.setAttribute("activePage","AddStore");
+            map.put("title", "Add Store");
+            map.put("actionForm", "AddStore");
+            logger.info("Exit AddStore");
+            return "storeEdition";
+        } catch(Exception e) {
+                request.setAttribute("erreur", e.getMessage());
+                logger.info("The store  has not been added. " + e.toString());
+                return "index"; 
+        }
+    }
+    
+     @RequestMapping(value = "/DeleteStore", method = RequestMethod.GET)
+    public String DeleteStore(ModelMap map, HttpServletRequest request, HttpSession session,
+            @RequestParam(value="storeId", required=false) int storeId) {
+        logger.info("Entry in DeleteStore");
+        try {
+            if(session.getAttribute("userStatus") == null || !session.getAttribute("userStatus").equals("Owner"))
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner.");
+            
+            Store store = null;
+            try {
+                 store = storeManager.getStoreById(storeId);
+            } catch(Exception e) {
+                throw new Exception("The store with id '" + storeId + "' not exist.");
+            }
+            
+            if(session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getLastModifiedBy().getID())
+                throw new Exception("You are not the owner of this store.");
+            
+            storeManager.removeStore(store);
+            
+            request.setAttribute("success", "The store '"+store.getName()+"' has been removed.");
+            request.setAttribute("activePage","Stores");
+            logger.info("Exit DeleteStore");
+            return "stores";
+        } catch(Exception e) {
+                request.setAttribute("erreur", e.getMessage());
+                logger.info("The store  has not been deleted. " + e.toString());
+                return "index"; 
+        }
     }
     
     @RequestMapping(value = "/UpdateStore", method = RequestMethod.GET)
-    public String UpdateStore(ModelMap map, HttpServletRequest request, 
+    public String UpdateStore(ModelMap map, HttpServletRequest request,HttpSession session,
             @RequestParam(value="storeId", required=false) int storeId) {
         logger.info("Entry in UpdateStore");
-        request.setAttribute("activePage","UpdateStore");
         try {
+            if(session.getAttribute("userStatus") == null || !session.getAttribute("userStatus").equals("Owner"))
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner.");
+            
+            request.setAttribute("activePage","UpdateStore");
             // get store id
             Store store = null;
             try {
@@ -99,6 +142,10 @@ import projetJEE.models.*;
             } catch(Exception e) {
                 throw new Exception("The store with id '" + storeId + "' not exist.");
             }
+            
+            if(session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getLastModifiedBy().getID())
+                throw new Exception("You are not the owner of this store.");
+            
             // add parameters
             // store informations
             request.setAttribute("name", store.getName());
@@ -197,7 +244,7 @@ import projetJEE.models.*;
                         LocalTime.parse(hourliesFrom.get(days[3])+":00"), LocalTime.parse(hourliesTo.get(days[3])+":00"),
                         LocalTime.parse(hourliesFrom.get(days[4])+":00"), LocalTime.parse(hourliesTo.get(days[4])+":00"),
                         LocalTime.parse(hourliesFrom.get(days[5])+":00"), LocalTime.parse(hourliesTo.get(days[5])+":00"));
-                Store store = new Store("key_65464", storeName, phoneNumber, email, Float.parseFloat(latitude), Float.parseFloat(longitude), now, uamanager.getUserAccountById(1), address, openingHour);
+                Store store = new Store("", storeName, phoneNumber, email, Float.parseFloat(latitude), Float.parseFloat(longitude), now, uamanager.getUserAccountById((int) session.getAttribute("userId")), address, openingHour);
                 storeManager.addStore(store);
                 request.setAttribute("success", "The store '"+storeName+"' has been registered");
             }
@@ -227,9 +274,13 @@ import projetJEE.models.*;
                 logger.info("The store  has not been added. " + e.toString());
                 return "storeEdition"; 
         }
+        request.setAttribute("activePage","Stores");
+
+        List<Store> storesLis = storeManager.getAll();
+        request.setAttribute("stores", storesLis);
         
         logger.info("Exit in addStore");
-        return "storeEdition";    
+        return "stores";    
     }
     
     @RequestMapping(value = "/UpdateStore", method = RequestMethod.POST)
@@ -284,7 +335,7 @@ import projetJEE.models.*;
                 store.setLatitude(Float.parseFloat(latitude));
                 store.setLongitude(Float.parseFloat(longitude));
                 store.setLastModifiedDate(LocalDate.now());
-                store.setLastModifiedBy(uamanager.getUserAccountById(1));
+                store.setLastModifiedBy(uamanager.getUserAccountById((int) session.getAttribute("userId")));
 
                 storeManager.addStore(store);
                 request.setAttribute("success", "The store '"+storeName+"' has been updated.");
@@ -316,9 +367,12 @@ import projetJEE.models.*;
                 logger.info("The store  has not been added. " + e.toString());
                 return "storeEdition"; 
         }
+        request.setAttribute("activePage","Stores");
+        List<Store> storesLis = storeManager.getAll();
+        request.setAttribute("stores", storesLis);
         
         logger.info("Exit in addStore");
-        return "storeEdition";    
+        return "stores";    
     }
     
     public boolean verificationStoreInformations(HttpServletRequest request) throws Exception {
