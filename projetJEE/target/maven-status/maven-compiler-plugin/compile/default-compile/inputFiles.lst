@@ -1,9 +1,11 @@
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\AddressManager.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\OpeningHour.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\TypeRepository.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\controllers\PromoController.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\JwTokenHelper.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\serviceContrats\JWTTokenNeededFilter.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\CountryManager.java
+E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\controllers\FileDownloadController.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\models\UserAccount.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\bl\concrete\OpeningHourManager.java
 E:\cours\DI4\S8\JAVA\Projet\projetJEE\projetJEE\src\main\java\projetJEE\domain\repository\UserAccountRepository.java

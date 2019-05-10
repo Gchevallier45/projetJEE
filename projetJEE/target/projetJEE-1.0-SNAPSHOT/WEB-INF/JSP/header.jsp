@@ -7,7 +7,7 @@
     </div>
     <!-- titre site -->
     <div class="titre col-sm-12 offset-md-1 col-md-5 offset-lg-2 col-lg-4 text-center" >
-        <h1>Our website<br/>in J2EE</h1>
+        <h1>J2EE<br/>SUPER MARKET</h1>
     </div>
     <!-- option connexion, deconnexion, profil -->
     <div class="option col-sm-12  offset-md-0  col-md-4 offset-lg-1  col-lg-3 align-self-center text-center">
@@ -50,10 +50,16 @@
   <li class="nav-item">
     <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("Stores")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>/Stores">Stores</a>
   </li>
+  <li class="nav-item">
+    <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("Promotions")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>/Promotions">Promotions</a>
+  </li>
   <% if( session.getAttribute("userStatus") != null && session.getAttribute("userStatus").equals("Owner")) { %>
   <li class="nav-item">
     <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("AddStore")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>/AddStore">Add Store</a>
   </li>
-  <% } %>
+  <li class="nav-item">
+    <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("AddPromo")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>/AddPromo">AddPromo</a>
+  </li>
+ <% } %>
 </ul>
 </nav>

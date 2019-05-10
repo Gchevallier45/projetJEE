@@ -5,7 +5,7 @@
 <html>  
     <head>
         <%@include file="head.jsp" %>
-        <title>Home Page</title>
+        <title>Stores</title>
         <link rel="stylesheet" type="text/css" href="${cp}/resources/css/stores.css" />
     </head>     
     <body>
@@ -13,7 +13,7 @@
          
          <section class="container">
             <h1>Stores</h1>
-            
+            <input class="form-control" id="myInput" type="text" placeholder="Enter criterias">
             <%@include file="messageErreur.jsp" %>
             
             <div class="col-sm-8">
@@ -29,7 +29,7 @@
                         <h2><%= store.getName() %></h2>
                         <div class="address">
                             <span class="street"><%= store.getAddress().getStreet() %></span> <br/>
-                            <span class="zipeCode"><%= store.getAddress().getStreet() %></span> <span class="city"><%= store.getAddress().getCity() %></span><br/>
+                            <span class="zipeCode"><%= store.getAddress().getZipCode() %></span> <span class="city"><%= store.getAddress().getCity() %></span><br/>
                             <span class="state"><%= store.getAddress().getState() %></span>, <span class="city"><%= store.getAddress().getCountry().getCountry() %></span>
                         </div>
                         <div class="contact">
@@ -123,7 +123,31 @@
 
          </section>
          
-         <script type="text/javascript" src="${cp}/resources/js/stores.js"></script>
+         
          <%@include file="footer.jsp" %>
+         <script type="text/javascript" src="${cp}/resources/js/stores.js"></script>
+        <script>
+            $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+                  var valueSplitted = value.split(" ");
+              $(".store").filter(function() {
+                    var acceptStore = true;
+                    for(var i=0; i<valueSplitted.length; i++){
+                          if(($(this).text().toLowerCase().indexOf(valueSplitted[i]) > -1) == false){
+                                  acceptStore = false;
+                          };
+                    }
+                $(this).toggle(acceptStore);
+              });
+            });
+          });
+          
+          function removeStore(storeId, storeName) {
+                if(confirm("Do you want to delete the store '"+storeName+"'?"))
+                    document.location.href="${cp}/DeleteStore?storeId="+storeId;
+            }
+
+        </script>
     </body> 
 </html>

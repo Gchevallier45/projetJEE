@@ -39,4 +39,9 @@ public class PromotionManager {
         this.repo.save(promotion);
         this.repo.flush();
     }
+    public void removePromotion(Promotion promotion){
+        logger.info("Entrée dans la fonction removePromotion");
+        this.repo.delete(promotion);
+        this.repo.flush();
+    }
 }

@@ -5,7 +5,9 @@
  */
 package projetJEE.models;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 /**
@@ -23,6 +25,12 @@ public class Verifications {
         private Pattern zipCodeRegex = Pattern.compile("([A-Z]+[A-Z]?\\-)?[0-9]{1,2} ?[0-9]{3}");
         private Pattern stateRegex = Pattern.compile("[a-zA-ZÀ-ÿ][a-zA-ZÀ-ÿ_0-9 ]{2,49}");
         private Pattern countryRegex = Pattern.compile("[a-zA-ZÀ-ÿ][a-zA-ZÀ-ÿ_0-9 ]{2,49}");
+       
+        private Pattern titleRegex = Pattern.compile("[a-zA-ZÀ-ÿ][a-zA-ZÀ-ÿ_0-9 ]{2,49}");
+        private Pattern shortDesciptionRegex = Pattern.compile("[a-zA-ZÀ-ÿ][a-zA-ZÀ-ÿ_0-9 ]{2,49}");
+        private Pattern longDescriptionRegex = Pattern.compile("[a-zA-ZÀ-ÿ][a-zA-ZÀ-ÿ_0-9 ]{2,49}");
+        private Pattern startDateRegex = Pattern.compile("[a-zA-ZÀ-ÿ][a-zA-ZÀ-ÿ_0-9 ]{2,49}");
+        private Pattern endDateRegex = Pattern.compile("[a-zA-ZÀ-ÿ][a-zA-ZÀ-ÿ_0-9 ]{2,49}");
 
         /**
          * Default constructor
@@ -183,5 +191,74 @@ public class Verifications {
             return true;
         }
         
+        /**
+         * title check
+         * @param title
+         * @return true if the parameter is correct
+         * @throws Exception if the parameter is incorrect
+         */
+        public boolean titleVerification(String title) throws Exception {
+            if(!titleRegex.matcher(title).matches()) {
+                    throw new Exception("The title must be from 3 to 50 characters.");
+            }
+            return true;
+        }
         
+        /**
+         * title check
+         * @param title
+         * @return true if the parameter is correct
+         * @throws Exception if the parameter is incorrect
+         */
+        public boolean shortDesciptionVerification(String shortDesciption) throws Exception {
+            if(!shortDesciptionRegex.matcher(shortDesciption).matches()) {
+                    throw new Exception("The short desciption must be from 3 to 50 characters.");
+            }
+            return true;
+        }
+        
+        /**
+         * longDescription check
+         * @param longDescription
+         * @return true if the parameter is correct
+         * @throws Exception if the parameter is incorrect
+         */
+        public boolean longDescriptionDesciptionVerification(String longDescription) throws Exception {
+            /*if(!longDescriptionRegex.matcher(longDescription).matches()) {
+                    throw new Exception("The long description must be from 3 to 50 characters.");
+            }*/
+            return true;
+        }
+        
+        /**
+         * datesVerification check
+         * @param 
+         * @return true if the parameter is correct
+         * @throws Exception if the parameter is incorrect
+         */
+        public boolean datesVerification(String startDate, String endDate) throws Exception {
+            LocalDate startDateLD = null;
+            LocalDate endDateLD =  null;
+            
+            try{
+                 startDateLD = LocalDate.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE);
+            }
+            catch(Exception e) {
+                LocalDate now = LocalDate.now();
+                throw new Exception("The start date is not in the correct format. Example format : "+now.format(DateTimeFormatter.ISO_LOCAL_DATE));
+            }
+
+            try{
+                 endDateLD = LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE);
+            }
+            catch(Exception e) {
+                LocalDate now = LocalDate.now();
+                throw new Exception("The end date is not in the correct format. Example format : "+now.format(DateTimeFormatter.ISO_LOCAL_DATE));
+            }
+            
+            if(startDateLD.isAfter(endDateLD))
+                throw new Exception("The start day is after of end day.");
+            
+            return true;
+        }
 }
