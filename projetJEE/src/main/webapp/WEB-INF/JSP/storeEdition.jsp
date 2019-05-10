@@ -89,7 +89,7 @@
                     <input style="display:none" type="text" name="longitude" <% if(request.getAttribute("longitude") != null) { out.println("value='"+request.getAttribute("longitude")+"'"); } %> >
                 </div>
                     
-
+                <label for="localisation">Put the localisation of store on the map</label>
                 <div id="map"></div>
    
                 <div class="formTitle col-sm-12 col-md-12 col-lg-12">

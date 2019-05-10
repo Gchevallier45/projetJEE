@@ -5,7 +5,7 @@
 <html>  
     <head>
         <%@include file="head.jsp" %>
-        <title>Home Page</title>
+        <title>Stores</title>
         <link rel="stylesheet" type="text/css" href="${cp}/resources/css/stores.css" />
     </head>     
     <body>
@@ -142,6 +142,12 @@
               });
             });
           });
+
+          function removeStore(storeId, storeName) {
+                if(confirm("Do you want to delete the store '"+storeName+"'?"))
+                    document.location.href="${cp}/DeleteStore?storeId="+storeId;
+            }
+
         </script>
     </body> 
 </html>
