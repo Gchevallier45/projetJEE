@@ -24,7 +24,7 @@
             
             <%@include file="messageErreur.jsp" %>
             
-            <form action="AddStore" method="POST">
+            <form action="${actionForm}" method="POST">
                 <div class="formTitle col-sm-12 col-md-12 col-lg-12">
                     <h2>General Information</h2>
                 </div>

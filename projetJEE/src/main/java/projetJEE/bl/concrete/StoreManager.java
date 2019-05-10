@@ -5,6 +5,7 @@
  */
 package projetJEE.bl.concrete;
 
+import java.util.List;
 import org.apache.log4j.Logger;
 import projetJEE.models.Store;
 import projetJEE.domain.repository.StoreRepository;
@@ -31,5 +32,10 @@ public class StoreManager {
         logger.info("Entrée dans la fonction addStore");
         this.repo.save(store);
         this.repo.flush();
+    }
+    
+    public List<Store> getAll(){
+        logger.info("Entrée dans la fonction getAll");
+        return this.repo.getAll();
     }
 }

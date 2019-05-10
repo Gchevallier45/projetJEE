@@ -57,10 +57,10 @@
     <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("HomePage")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>">Home Page</a>
   </li>
   <li class="nav-item">
-    <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("AddStore")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>/AddStore">Add Store</a>
+    <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("stores")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>/Stores">stores 3</a>
   </li>
   <li class="nav-item">
-    <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("Page_3")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>#Page_3">Page 3</a>
+    <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("AddStore")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>/AddStore">Add Store</a>
   </li>
   <li class="nav-item">
     <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("Page_4")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>#Page_4">Page 4</a>

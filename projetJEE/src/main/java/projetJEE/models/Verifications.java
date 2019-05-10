@@ -135,6 +135,19 @@ public class Verifications {
         }
         
         /**
+         * point position check
+         * @param latitude, longitude
+         * @return true if the parameter is correct
+         * @throws Exception if the parameter is incorrect
+         */
+        public boolean pointPositionVerification(String latitude, String longitude) throws Exception {
+            if(latitude == null || latitude.isEmpty()) {
+                    throw new Exception("You must indicate the location of the store on the map below.");
+            }
+            return true;
+        }
+        
+        /**
          * openingHour check
          * @param country
          * @return true if the parameter is correct
