@@ -50,7 +50,7 @@ public class Address implements Serializable {
     @Column(name = "ZipCode")
     private String zipCode;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Country country;
     
     public Address(JsonObject jsonObject) throws ParseException {

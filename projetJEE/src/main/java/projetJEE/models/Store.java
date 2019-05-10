@@ -67,7 +67,7 @@ public class Store implements Serializable {
     @Column(name = "LastModifiedDate")
     private LocalDate lastModifiedDate;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private UserAccount lastModifiedBy;
     
     @OneToOne(cascade = CascadeType.ALL)

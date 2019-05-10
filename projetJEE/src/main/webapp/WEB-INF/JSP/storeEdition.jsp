@@ -13,8 +13,6 @@
 	<script type="text/javascript" src="${cp}/resources/js/leaflet/leaflet.js"></script>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-
-	<script type="text/javascript" src="${cp}/resources/js/store.js"></script>
     </head>     
     <body>
          <%@include file="header.jsp" %>
@@ -45,7 +43,6 @@
                 <div class="form-group">
                   <label for="email">Email address</label>
                   <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="louis.durant@mail.com" <% if(request.getAttribute("email") != null) { out.println("value='"+request.getAttribute("email")+"'"); }%> >
-                  <small id="email" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>    
                     
                 <!-- phone number -->
@@ -94,11 +91,7 @@
                     
 
                 <div id="map"></div>
-                <script>
-                        initmap();
-                </script>
-
-                    
+   
                 <div class="formTitle col-sm-12 col-md-12 col-lg-12">
                     <h2>Opening hours</h2>
                 </div>
@@ -164,85 +157,7 @@
             </form>
 
          </section>
-
+         <script type="text/javascript" src="${cp}/resources/js/storeEdition.js"></script>
          <%@include file="footer.jsp" %>
     </body> 
 </html>
-
-<script>
-    var days = new Array( "Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun");
-    
-    function closed(day) {
-        var fromDay = document.getElementsByName('from'+days[day])[0];
-        var toDay = document.getElementsByName('to'+days[day])[0];
-        var closedDay = document.getElementsByName('closed'+days[day])[0];
-        var is24hrsDay = document.getElementsByName('24hrs'+days[day])[0];
-        
-        if(closedDay.checked  == true) // is close
-        {
-            is24hrsDay.checked=false;
-            fromDay.value="--:--";
-            fromDay.disabled=true;
-            toDay.value="--:--";
-            toDay.disabled=true;
-        }
-        else{
-            fromDay.disabled=false;
-            toDay.disabled=false;
-        }
-        
-    }
-    function is24hrsDay(day) {
-        var fromDay = document.getElementsByName('from'+days[day])[0];
-        var toDay = document.getElementsByName('to'+days[day])[0];
-        var closedDay = document.getElementsByName('closed'+days[day])[0];
-        var is24hrsDay = document.getElementsByName('24hrs'+days[day])[0];
-        
-        if(is24hrsDay.checked  == true) // is open 24/24H
-        {
-            closedDay.checked=false;
-            fromDay.value="--:--";
-            fromDay.disabled=true;
-            toDay.value="--:--";
-            toDay.disabled=true;
-        }
-        else{
-            fromDay.disabled=false;
-            toDay.disabled=false;
-        }
-    }
-    
-    function hoursIsAvailabled(day) {
-        var fromDay = document.getElementsByName('from'+days[day])[0];
-        var toDay = document.getElementsByName('to'+days[day])[0];
-        var closedDay = document.getElementsByName('closed'+days[day])[0];
-        var is24hrsDay = document.getElementsByName('24hrs'+days[day])[0];
-        
-        if(is24hrsDay.checked  == true) // is open 24/24H
-        {
-            closedDay.checked=false;
-            fromDay.value="--:--";
-            fromDay.disabled=true;
-            toDay.value="--:--";
-            toDay.disabled=true;
-        }
-        if(closedDay.checked  == true) // is close
-        {
-            is24hrsDay.checked=false;
-            fromDay.value="--:--";
-            fromDay.disabled=true;
-            toDay.value="--:--";
-            toDay.disabled=true;
-        }
-    }
-
-   
-   
-   function init() {
-       for(var indiceDay = 0; indiceDay < 7; indiceDay++) { 
-           hoursIsAvailabled(indiceDay);
-       }
-   }
-   
-   init();
-</script>

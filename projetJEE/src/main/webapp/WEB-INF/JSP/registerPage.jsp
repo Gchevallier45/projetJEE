@@ -43,7 +43,6 @@
                 <div class="form-group">
                   <label for="email">Email address</label>
                   <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="louis.durant@mail.com" <% if(request.getAttribute("email") != null) { out.println("value='"+request.getAttribute("email")+"'"); }%>>
-                  <small id="email" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 
                 <!-- password -->
