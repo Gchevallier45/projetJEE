@@ -26,6 +26,7 @@ projetJEE\models\Verifications.class
 projetJEE\serviceContrats\UserRest.class
 projetJEE\bl\concrete\AddressManager.class
 projetJEE\serviceContrats\TokenManagement.class
+projetJEE\controllers\ProfileController.class
 projetJEE\config\AppConfig.class
 projetJEE\domain\repository\AddressRepository.class
 projetJEE\domain\repository\UserAccountRepository.class

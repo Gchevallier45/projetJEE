@@ -21,7 +21,7 @@
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink d-flex justify-content-center">
               <span class="elementDrepdown-menu"><%=session.getAttribute("userFirstName")%> <%=session.getAttribute("userLastName")%></span>
-              <a class="dropdown-item lien" href="<%=request.getContextPath()%>/MonProfil">Mon profil</a>
+              <a class="dropdown-item lien" href="<%=request.getContextPath()%>/Profile">Mon profil</a>
 
               
               <div class="dropdown-divider"></div>

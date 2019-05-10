@@ -4,6 +4,6 @@
     border: 1px solid #2125293d;
     margin: 1em;
 } 
-.address, .contact, openingHours, actionsOnStore {
+.address, .contact, openingHours, actionsOnStore, .dates {
     padding: 0.5em;
 }
