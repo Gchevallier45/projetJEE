@@ -104,7 +104,7 @@
                          if( (session.getAttribute("userStatus") != null && session.getAttribute("userStatus").equals("Owner")) && 
                             (session.getAttribute("userId") != null && (session.getAttribute("userId")).equals(store.getLastModifiedBy().getID()))){ %>
                         <div class="actionsOnStore">
-                            <button type="button" class="btn btn-info" onclick="document.location.href='${cp}/UpdateStore?storeId=<%= store.getID() %>'">Modifier</button> <button type="button" class="btn btn-warning"   onclick="removeStore('<%= store.getID() %>', '<%= store.getName() %>')">Supprimer</button>
+                            <button type="button" class="btn btn-info" onclick="document.location.href='${cp}/UpdateStore?storeId=<%= store.getID() %>'">Edit</button> <button type="button" class="btn btn-warning"   onclick="removeStore('<%= store.getID() %>', '<%= store.getName() %>')">Remove</button>
                         </div>
                         <% } %>
                     </div>

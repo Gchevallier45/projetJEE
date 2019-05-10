@@ -198,9 +198,11 @@ public class Verifications {
          * @throws Exception if the parameter is incorrect
          */
         public boolean titleVerification(String title) throws Exception {
-            if(!titleRegex.matcher(title).matches()) {
+            if(title == null || title.length() < 3 || title.length() > 50) 
                     throw new Exception("The title must be from 3 to 50 characters.");
-            }
+            /*if(!titleRegex.matcher(title).matches()) {
+                    throw new Exception("The title must be from 3 to 50 characters.");
+            }*/
             return true;
         }
         
@@ -211,9 +213,12 @@ public class Verifications {
          * @throws Exception if the parameter is incorrect
          */
         public boolean shortDesciptionVerification(String shortDesciption) throws Exception {
-            if(!shortDesciptionRegex.matcher(shortDesciption).matches()) {
+            if(shortDesciption == null || shortDesciption.length() < 3) 
                     throw new Exception("The short desciption must be from 3 to 50 characters.");
-            }
+            
+            /*if(!shortDesciptionRegex.matcher(shortDesciption).matches()) {
+                    throw new Exception("The short desciption must be from 3 to 50 characters.");
+            }*/
             return true;
         }
         
@@ -224,6 +229,8 @@ public class Verifications {
          * @throws Exception if the parameter is incorrect
          */
         public boolean longDescriptionDesciptionVerification(String longDescription) throws Exception {
+            if(longDescription == null || longDescription.length() < 3) 
+                    throw new Exception("The long description must be from 3 to 250 characters.");
             /*if(!longDescriptionRegex.matcher(longDescription).matches()) {
                     throw new Exception("The long description must be from 3 to 50 characters.");
             }*/

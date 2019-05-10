@@ -17,15 +17,15 @@
 
           <!-- Profil utilisateur -->
           <div class="dropdown show dropDownProfil">
-            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi" data-glyph="person"></span> Profil</button>
+            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi" data-glyph="person"></span> Profile</button>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink d-flex justify-content-center">
               <span class="elementDrepdown-menu"><%=session.getAttribute("userFirstName")%> <%=session.getAttribute("userLastName")%></span>
-              <a class="dropdown-item lien" href="<%=request.getContextPath()%>/Profile">Mon profil</a>
+              <a class="dropdown-item lien" href="<%=request.getContextPath()%>/Profile">My profile</a>
 
               
               <div class="dropdown-divider"></div>
-              <button type="button" class="btn btn-light elementDrepdown-menu" onclick="self.location.href='${cp}/Logout'">Déconnexion</button>
+              <button type="button" class="btn btn-light elementDrepdown-menu" onclick="self.location.href='${cp}/Logout'">Logout</button>
             </div>
           </div>
           <%

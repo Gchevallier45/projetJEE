@@ -6,7 +6,6 @@
 package projetJEE.controllers;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.annotation.Resource;
@@ -24,12 +23,7 @@ import projetJEE.bl.concrete.AddressManager;
 import projetJEE.bl.concrete.PromotionManager;
 import projetJEE.bl.concrete.TypeManager;
 import projetJEE.bl.concrete.UserAccountManager;
-import projetJEE.models.Address;
-import projetJEE.models.Country;
-import projetJEE.models.OpeningHour;
 import projetJEE.models.Promotion;
-import projetJEE.models.Store;
-import projetJEE.models.UserAccount;
 import projetJEE.models.Verifications;
  
 @Controller public class PromoController { 
@@ -97,7 +91,100 @@ import projetJEE.models.Verifications;
             if(verificationPromoInformations(request)) {
                 Promotion promotion = new Promotion("", title, shortDescription, longDescription, 0, false, LocalDate.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE), LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE), "");
                 promotionManager.addPromotion(promotion);
-                request.setAttribute("success", "The promo has been registered");
+                request.setAttribute("success", "The promotion has been registered");
+                
+                // add
+                List<Promotion> promotionsList = promotionManager.getPromotions();
+                
+                 request.setAttribute("promotions", promotionsList);
+                 request.setAttribute("activePage","Promotions");
+                 logger.info("Exit in addStore");
+            }
+            
+        } catch(Exception e) {
+            // promo informations
+            request.setAttribute("promoTitle", title);
+            request.setAttribute("shortDescription", shortDescription);
+            request.setAttribute("longDescription", longDescription);
+            request.setAttribute("startDate", startDate);
+            request.setAttribute("endDate", endDate);
+            request.setAttribute("idPromo", idPromo);
+
+            request.setAttribute("erreur", "The promotion  has not been added. " + e.getMessage());
+            logger.info("The promotion  has not been added. " + e.toString());
+            return "promoEdition"; 
+        }
+        
+        
+        /*
+        List<Store> storesLis = storeManager.getAll();
+        request.setAttribute("stores", storesLis);
+        */
+        return "promotions"; 
+    }
+    
+    @RequestMapping(value = "/UpdatePromotion", method = RequestMethod.GET)
+    public String UpdatePromotion(ModelMap map, HttpServletRequest request, HttpSession session,
+             @RequestParam(value="promotionId", required=false) int promotionId) {
+        logger.info("Entry in UpdatePromotion");
+        try {
+            if(session.getAttribute("userStatus") == null || !session.getAttribute("userStatus").equals("Owner"))
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner.");
+            
+             request.setAttribute("activePage","UpdatePromotion");
+             
+            // get promotion id
+            Promotion promotion = null;
+            try {
+                 promotion = promotionManager.getPromotionById(promotionId);
+            } catch(Exception e) {
+                throw new Exception("The store with id '" + promotionId + "' not exist.");
+            }
+            
+            // add parameters
+            // store informations
+            request.setAttribute("promoTitle", promotion.getTitle());
+            request.setAttribute("shortDescription", promotion.getShortDescription());
+            request.setAttribute("longDescription", promotion.getLongDescription());
+            request.setAttribute("startDate", promotion.getStartDate());
+            request.setAttribute("endDate", promotion.getEndDate());
+            request.setAttribute("idPromo", promotion.getID());
+            
+            map.put("title", "Update promotion");
+            map.put("actionForm", "UpdatePromotion");
+            logger.info("Exit UpdatePromotion");
+            return "promoEdition";
+        } catch(Exception e) {
+            request.setAttribute("erreur", e.getMessage());
+            logger.info("The Promo  has not been added. " + e.toString());
+            return "index"; 
+        }
+    }
+    
+    @RequestMapping(value = "/UpdatePromotion", method = RequestMethod.POST)
+    @Transactional
+    public String UpdatePromotion(HttpServletRequest request,HttpServletResponse response,HttpSession session,
+          @RequestParam(value="name", required=false) String name, 
+          @RequestParam(value="email", required=false) String email,
+          ModelMap map) {
+        logger.info("Entry in UpdatePromotion");
+        request.setAttribute("activePage","UpdatePromotion");
+        map.put("title", "Update Promotions");
+        map.put("actionForm", "UpdatePromotion");
+        // ofLocalizedDate(dateStyle)
+        try {
+            if(verificationPromoInformations(request)) {
+                
+                
+                Promotion promotion = promotionManager.getPromotionById(Integer.parseInt(idPromo));
+                promotion.setTitle(title);
+                promotion.setShortDescription(shortDescription);
+                promotion.setLongDescription(longDescription);
+                promotion.setStartDate(LocalDate.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE));
+                promotion.setEndDate(LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE));
+
+                promotionManager.addPromotion(promotion);
+                request.setAttribute("success", "The promotion has been updated");
                 
                 // add
                 List<Promotion> promotionsList = promotionManager.getPromotions();

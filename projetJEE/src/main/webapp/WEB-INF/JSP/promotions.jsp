@@ -40,7 +40,7 @@
                             
                          if(session.getAttribute("userStatus") != null && (session.getAttribute("userStatus").equals("Owner") || session.getAttribute("userStatus").equals("Administrator"))){ %>
                         <div class="actionsOnPromotion">
-                            <button type="button" class="btn btn-info" onclick="document.location.href='${cp}/UpdatePromotion?promotionId=<%= promotion.getID() %>'">Modifier</button> <button type="button" class="btn btn-warning"   onclick="removePromotion('<%= promotion.getID() %>', '<%= promotion.getTitle() %>')">Supprimer</button>
+                            <button type="button" class="btn btn-info" onclick="document.location.href='${cp}/UpdatePromotion?promotionId=<%= promotion.getID() %>'">Edit</button> <button type="button" class="btn btn-warning"   onclick="removePromotion('<%= promotion.getID() %>', '<%= promotion.getTitle() %>')">Remove</button>
                         </div>
                         <% } %>
                     </div>

@@ -26,7 +26,6 @@ projetJEE\serviceContrats\JWTTokenNeededFilter.class
 projetJEE\serviceContrats\AuthorizationResponse.class
 projetJEE\models\OpeningHour.class
 projetJEE\controllers\RegisterController.class
-projetJEE\controllers\FileDownloadController.class
 projetJEE\domain\repository\StoreRepository.class
 projetJEE\bl\concrete\CountryManager.class
 projetJEE\controllers\DefaultController.class
