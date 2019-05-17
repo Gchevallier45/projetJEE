@@ -15,7 +15,7 @@
             
             <%@include file="messageErreur.jsp" %>
             
-            <form action="${actionForm}" method="POST">
+            <form action="${actionForm}" method="POST" enctype="multipart/form-data">
                 <div class="form-row">
                     <!-- promo Title -->
                     <div class="form-group col-md-6">
@@ -50,6 +50,11 @@
                         <span class="validity"></span>
                      </div>
                 </div>
+                        
+                <div class="form-row">
+                    <label for="endDate">Picture</label>
+                    <input type="file" class="custom-file" name="file" />
+                </div>
 
                 <input type="text" style="display:none" name="idPromo" <% if(request.getAttribute("idPromo") != null) { out.println("value='"+request.getAttribute("idPromo")+"'"); }%>>
                       
@@ -57,7 +62,7 @@
             </form>
 
          </section>
-         <script type="text/javascript" src="${cp}/resources/js/storeEdition.js"></script>
+         <!--<script type="text/javascript" src="${cp}/resources/js/storeEdition.js"></script>-->
          <%@include file="footer.jsp" %>
     </body> 
 </html>

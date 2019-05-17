@@ -31,6 +31,7 @@
                             <span><%= promotion.getShortDescription() %></span>
                         </div>
                         <div class="longDescription">
+                            <img src="${cp}/resources/img/promos/<%= promotion.getImageURL() %>" width="200"/>
                             <span><%= promotion.getLongDescription() %></span>
                         </div>
                         <div class="dates">

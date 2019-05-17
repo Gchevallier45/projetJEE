@@ -101,7 +101,7 @@ import projetJEE.models.UserAccount;
         ua.requestPasswordReset();
         Address adr = adrmanager.getAddressById(1);
         //Store store = storemanager.getStoreById(5);
-        Store store = new Store("", "", "", "", 0, 0, LocalDate.now(), null, null, new OpeningHour(LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now()));//storemanager.getStoreById(1);
+        Store store = new Store("", "", "", "", 0, 0, LocalDate.now(), null, null, new OpeningHour(LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now(),LocalTime.now()),null,false);//storemanager.getStoreById(1);
         //store.getOpeningHours().setMonOpen(LocalTime.now());
         store.setAddress(adr);
         store.setLastModifiedBy(ua);
