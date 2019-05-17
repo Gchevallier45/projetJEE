@@ -5,9 +5,12 @@
  */
 package projetJEE.controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.logging.Level;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +22,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import projetJEE.bl.concrete.AddressManager;
 import projetJEE.bl.concrete.PromotionManager;
 import projetJEE.bl.concrete.TypeManager;
@@ -81,6 +85,7 @@ import projetJEE.models.Verifications;
     public String AddPromoPOST(HttpServletRequest request,HttpServletResponse response,HttpSession session,
           @RequestParam(value="name", required=false) String name, 
           @RequestParam(value="email", required=false) String email,
+          @RequestParam("file") MultipartFile uploadedFile,
           ModelMap map) {
         logger.info("Entry in AddPromo");
         request.setAttribute("activePage","AddPromo");
@@ -89,7 +94,15 @@ import projetJEE.models.Verifications;
         // ofLocalizedDate(dateStyle)
         try {
             if(verificationPromoInformations(request)) {
-                Promotion promotion = new Promotion("", title, shortDescription, longDescription, 0, false, LocalDate.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE), LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE), "");
+                String path = request.getServletContext().getRealPath("/WEB-INF/resources/img/promos/") + File.separator + uploadedFile.getOriginalFilename();
+                try {
+                    File file = new File(path);
+                    uploadedFile.transferTo(file);
+                } catch (IOException | IllegalStateException ex) {
+                    java.util.logging.Logger.getLogger(PromoController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                Promotion promotion = new Promotion("", title, shortDescription, longDescription, 0, false, LocalDate.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE), LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE), uploadedFile.getOriginalFilename());
                 promotionManager.addPromotion(promotion);
                 request.setAttribute("success", "The promotion has been registered");
                 

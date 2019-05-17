@@ -29,7 +29,7 @@ public class Store implements Serializable {
     public Store(){
     }
     
-    public Store(String keyValue, String name, String phoneNumber, String email, float latitude, float longitude, LocalDate lastModifiedDate, UserAccount lastModifiedBy, Address address, OpeningHour openingHours) {
+    public Store(String keyValue, String name, String phoneNumber, String email, float latitude, float longitude, LocalDate lastModifiedDate, UserAccount lastModifiedBy, Address address, OpeningHour openingHours, UserAccount owner, boolean isClosed) {
         this.keyValue = keyValue;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -40,6 +40,8 @@ public class Store implements Serializable {
         this.lastModifiedBy = lastModifiedBy;
         this.address = address;
         this.openingHours = openingHours;
+        this.owner = owner;
+        this.isClosed = isClosed;
     }
     
     @Id
@@ -68,6 +70,9 @@ public class Store implements Serializable {
     @Column(name = "LastModifiedDate")
     private LocalDate lastModifiedDate;
     
+    @Column(name = "IsClosed")
+    private boolean isClosed;
+    
     @ManyToOne(cascade = CascadeType.PERSIST)
     private UserAccount lastModifiedBy;
     
@@ -76,6 +81,9 @@ public class Store implements Serializable {
     
     @OneToOne(cascade = CascadeType.ALL)
     private OpeningHour openingHours;
+    
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private UserAccount owner;
     
     public int getID() {
         return ID;
@@ -163,6 +171,22 @@ public class Store implements Serializable {
 
     public void setOpeningHours(OpeningHour openingHours) {
         this.openingHours = openingHours;
+    }
+    
+    public UserAccount getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserAccount owner) {
+        this.owner = owner;
+    }
+    
+    public boolean isIsClosed() {
+        return isClosed;
+    }
+
+    public void setIsClosed(boolean isClosed) {
+        this.isClosed = isClosed;
     }
     
     public org.json.JSONObject getJsonOpeningDayObject(LocalTime openingHour, LocalTime closedHour) {

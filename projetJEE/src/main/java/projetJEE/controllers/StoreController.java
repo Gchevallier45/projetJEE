@@ -110,7 +110,7 @@ import projetJEE.models.*;
                 throw new Exception("The store with id '" + storeId + "' not exist.");
             }
             
-            if(session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getLastModifiedBy().getID())
+            if(session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getOwner().getID())
                 throw new Exception("You are not the owner of this store.");
             
             storeManager.removeStore(store);
@@ -143,7 +143,7 @@ import projetJEE.models.*;
                 throw new Exception("The store with id '" + storeId + "' not exist.");
             }
             
-            if(session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getLastModifiedBy().getID())
+            if(session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getOwner().getID())
                 throw new Exception("You are not the owner of this store.");
             
             // add parameters
@@ -244,7 +244,7 @@ import projetJEE.models.*;
                         LocalTime.parse(hourliesFrom.get(days[3])+":00"), LocalTime.parse(hourliesTo.get(days[3])+":00"),
                         LocalTime.parse(hourliesFrom.get(days[4])+":00"), LocalTime.parse(hourliesTo.get(days[4])+":00"),
                         LocalTime.parse(hourliesFrom.get(days[5])+":00"), LocalTime.parse(hourliesTo.get(days[5])+":00"));
-                Store store = new Store("", storeName, phoneNumber, email, Float.parseFloat(latitude), Float.parseFloat(longitude), now, uamanager.getUserAccountById((int) session.getAttribute("userId")), address, openingHour);
+                Store store = new Store("", storeName, phoneNumber, email, Float.parseFloat(latitude), Float.parseFloat(longitude), now, uamanager.getUserAccountById((int) session.getAttribute("userId")), address, openingHour,uamanager.getUserAccountById((int) session.getAttribute("userId")),false);
                 storeManager.addStore(store);
                 request.setAttribute("success", "The store '"+storeName+"' has been registered");
             }
