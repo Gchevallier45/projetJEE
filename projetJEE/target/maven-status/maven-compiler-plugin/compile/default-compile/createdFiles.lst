@@ -30,7 +30,6 @@ projetJEE\domain\repository\StoreRepository.class
 projetJEE\bl\concrete\CountryManager.class
 projetJEE\controllers\DefaultController.class
 projetJEE\models\Type_.class
-projetJEE\controllers\FileUploadController.class
 projetJEE\bl\concrete\TypeManager.class
 projetJEE\domain\repository\PromotionRepository.class
 projetJEE\serviceContrats\JwTokenHelper.class

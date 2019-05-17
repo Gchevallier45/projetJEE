@@ -101,13 +101,11 @@ import projetJEE.models.Verifications;
         try {
             if(verificationPromoInformations(request)) {
                 String path = request.getServletContext().getRealPath("/WEB-INF/resources/img/promos/") + File.separator + uploadedFile.getOriginalFilename();
-                System.out.print(path);
-                System.out.println(request.getServletContext().getRealPath("/"));
                 try {
                     File file = new File(path);
                     uploadedFile.transferTo(file);
                 } catch (IOException | IllegalStateException ex) {
-                    java.util.logging.Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(PromoController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
                 Promotion promotion = new Promotion("", title, shortDescription, longDescription, 0, false, LocalDate.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE), LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE), uploadedFile.getOriginalFilename());
