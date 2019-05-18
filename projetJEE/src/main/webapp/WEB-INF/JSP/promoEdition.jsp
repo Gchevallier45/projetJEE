@@ -17,9 +17,9 @@
             
             <form action="${actionForm}" method="POST" enctype="multipart/form-data">
                 <div class="form-row">
-                    <!-- promo Title -->
+                    <!-- Promotion Title -->
                     <div class="form-group col-md-6">
-                        <label for="promoTitle">Promo title</label>
+                        <label for="promoTitle">Promotion title</label>
                         <input type="text" class="form-control" name="promoTitle" id="promoTitle"  placeholder="Ex: Get 12 cookies for $5.00" <% if(request.getAttribute("promoTitle") != null) { out.println("value='"+request.getAttribute("promoTitle")+"'"); }%> >
                     </div>
                 </div>
