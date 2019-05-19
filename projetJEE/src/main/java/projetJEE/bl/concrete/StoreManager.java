@@ -40,8 +40,13 @@ public class StoreManager {
         this.repo.flush();
     }
     
-    public List<Store> getAll(){
-        logger.info("Entrée dans la fonction getAll");
-        return this.repo.getAll();
+    public List<Store> getAllOpen(){
+        logger.info("Entrée dans la fonction getAllOpen");
+        return this.repo.getAllOpen();
+    }
+    
+    public List<Store> getStoresManagerOfOwner(int ownerId) {
+        logger.info("Entrée dans la fonction storeManagerOfOwner");
+        return this.repo.getStoresManagerOfOwner(ownerId);
     }
 }

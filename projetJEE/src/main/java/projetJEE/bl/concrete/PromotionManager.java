@@ -34,6 +34,10 @@ public class PromotionManager {
         return this.repo.findAll();
     }
     
+     public List<Promotion> getPromotionsAbled() {
+        return this.repo.getPromotionsAbled();
+    }
+    
     public void addPromotion(Promotion promotion){
         logger.info("Entrée dans la fonction addPromotion");
         this.repo.save(promotion);

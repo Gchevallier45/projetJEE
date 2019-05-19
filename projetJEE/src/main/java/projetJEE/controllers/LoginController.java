@@ -26,9 +26,18 @@ import projetJEE.models.UserAccount;
     TypeManager typmanager;
     
     @RequestMapping(value = "/Login", method = RequestMethod.GET)
-    public String LoginPage(ModelMap map) {
-        logger.info("Accès à la page de login.");
-        return "login";    
+    public String LoginPage(ModelMap map, HttpSession session, HttpServletRequest request) {
+        
+        try {
+            if(session.getAttribute("userStatus")!= null)
+                    throw new Exception("You are already logged.");
+            logger.info("Accès à la page de login.");
+            return "login";
+        } catch(Exception e) {
+            logger.info("Redirection at home page.");
+            request.setAttribute("erreur", "Redirection at home page.");
+            return "login";
+        }
     }
     
  @RequestMapping(value="/Login",method=RequestMethod.POST)

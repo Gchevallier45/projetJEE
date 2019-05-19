@@ -101,10 +101,10 @@
                         </div>
                         <% 
                             
-                         if( (session.getAttribute("userStatus") != null && session.getAttribute("userStatus").equals("Owner")) && 
-                            (session.getAttribute("userId") != null && (session.getAttribute("userId")).equals(store.getOwner().getID()))){ %>
+                         if(session.getAttribute("userStatus") != null &&  (session.getAttribute("userStatus").equals("Administrator") || 
+                            (session.getAttribute("userStatus").equals("Owner") && (session.getAttribute("userId") != null && (session.getAttribute("userId")).equals(store.getOwner().getID() ))) ) ){ %>
                         <div class="actionsOnStore">
-                            <button type="button" class="btn btn-info" onclick="document.location.href='${cp}/UpdateStore?storeId=<%= store.getID() %>'">Edit</button> <button type="button" class="btn btn-warning"   onclick="removeStore('<%= store.getID() %>', '<%= store.getName() %>')">Remove</button>
+                            <button type="button" class="btn btn-info" onclick="document.location.href='${cp}/UpdateStore?storeId=<%= store.getID() %>'">Edit</button> <button type="button" class="btn btn-warning"   onclick="closeStore('<%= store.getID() %>', '<%= store.getName() %>')">Close</button>
                         </div>
                         <% } %>
                     </div>
@@ -143,9 +143,9 @@
             });
           });
 
-          function removeStore(storeId, storeName) {
-                if(confirm("Do you want to delete the store '"+storeName+"'?"))
-                    document.location.href="${cp}/DeleteStore?storeId="+storeId;
+          function closeStore(storeId, storeName) {
+                if(confirm("Do you want to close the store '"+storeName+"'?"))
+                    document.location.href="${cp}/CloseStore?storeId="+storeId;
             }
 
         </script>

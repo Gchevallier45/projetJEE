@@ -175,14 +175,14 @@ public class Verifications {
                 }
 
                 try{
-                     closeHourLT = LocalTime.parse(openHour+":00");
+                     closeHourLT = LocalTime.parse(closeHour+":00");
                 }
                 catch(Exception e) {
                     throw new Exception(day+"'s close time is not in the correct format. Example: 20:30 for 20:30");
                 }
             }
             
-            if((isClosed == false && is24hrs == false) && openHourLT.isAfter(closeHourLT))
+            if(isClosed == false && is24hrs == false && openHourLT.isAfter(closeHourLT))
                 throw new Exception("The open hour is after of close hour.");
             
             if(isClosed == true && is24hrs == true) 
@@ -268,4 +268,5 @@ public class Verifications {
             
             return true;
         }
+
 }

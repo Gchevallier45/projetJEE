@@ -60,7 +60,7 @@ import projetJEE.models.*;
         logger.info("Accès à la page de register. POST");
 
         try {
-
+            request.setCharacterEncoding("UTF-8");
             if(firstName == null || firstName.isEmpty()) {
                     throw new Exception("Le champ firstName doit être complété.");
             }

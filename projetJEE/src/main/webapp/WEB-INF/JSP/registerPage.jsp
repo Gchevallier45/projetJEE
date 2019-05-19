@@ -29,31 +29,31 @@
                     <!-- first name -->
                     <div class="form-group col-md-6">
                         <label for="firstName">First name</label>
-                        <input type="text" class="form-control" name="firstName" id="firstName" aria-describedby="emailHelp" placeholder="Ex: Louis" <% if(request.getAttribute("firstName") != null) { out.println("value='"+request.getAttribute("firstName")+"'"); }%>>
+                        <input type="text" class="form-control" required name="firstName" id="firstName" aria-describedby="emailHelp" placeholder="Ex: Louis" <% if(request.getAttribute("firstName") != null) { out.println("value='"+request.getAttribute("firstName")+"'"); }%>>
                     </div>
                     
                     <!-- last name -->
                     <div class="form-group col-md-6">
                         <label for="lastName">Last name</label>
-                        <input type="text" class="form-control" name="lastName" id="lastName" aria-describedby="emailHelp" placeholder="Ex: Durant" <% if(request.getAttribute("lastName") != null) { out.println("value='"+request.getAttribute("lastName")+"'"); }%>>
+                        <input type="text" class="form-control" required name="lastName" id="lastName" aria-describedby="emailHelp" placeholder="Ex: Durant" <% if(request.getAttribute("lastName") != null) { out.println("value='"+request.getAttribute("lastName")+"'"); }%>>
                     </div>
                 </div>
                 
                 <!-- email -->
                 <div class="form-group">
                   <label for="email">Email address</label>
-                  <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="louis.durant@mail.com" <% if(request.getAttribute("email") != null) { out.println("value='"+request.getAttribute("email")+"'"); }%>>
+                  <input type="email" class="form-control" required name="email" id="email" aria-describedby="emailHelp" placeholder="louis.durant@mail.com" <% if(request.getAttribute("email") != null) { out.println("value='"+request.getAttribute("email")+"'"); }%>>
                 </div>
                 
                 <!-- password -->
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                        <input type="password" class="form-control" required name="password" id="password" placeholder="Password">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="password2">Re-enter the password</label>
-                        <input type="password" class="form-control" name="password2" id="password2" placeholder="Password">
+                        <input type="password" class="form-control" required name="password2" id="password2" placeholder="Password">
                     </div>
                 </div>
                 
@@ -63,13 +63,13 @@
                 <!-- phone number -->
                 <div class="form-group">
                     <label for="phoneNumber">Phone number</label>
-                    <input type="tel" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="0622335544" maxlength="10" <% if(request.getAttribute("phoneNumber") != null) { out.println("value='"+request.getAttribute("phoneNumber")+"'"); }%>>
+                    <input type="tel" class="form-control" required name="phoneNumber" id="phoneNumber" placeholder="0622335544" maxlength="10" <% if(request.getAttribute("phoneNumber") != null) { out.println("value='"+request.getAttribute("phoneNumber")+"'"); }%>>
                 </div>
                 
                 <!-- adress -->
                 <div class="form-group">
                     <label for="inputAddress2">street</label>
-                    <input type="text" class="form-control" id="street" name="street" placeholder="1234 Main St" <% if(request.getAttribute("street") != null) { out.println("value='"+request.getAttribute("street")+"'"); }%>>
+                    <input type="text" class="form-control" id="street" required name="street" placeholder="1234 Main St" <% if(request.getAttribute("street") != null) { out.println("value='"+request.getAttribute("street")+"'"); }%>>
                 </div>
                 
                 <div class="form-row">
@@ -77,25 +77,25 @@
                     <!-- City -->
                     <div class="form-group col-md-4">
                       <label for="inputCity">City</label>
-                      <input type="text" class="form-control" id="inputCity" name="city" placeholder="Tours" <% if(request.getAttribute("city") != null) { out.println("value='"+request.getAttribute("city")+"'"); }%>>
+                      <input type="text" class="form-control" id="inputCity" required name="city" placeholder="Tours" <% if(request.getAttribute("city") != null) { out.println("value='"+request.getAttribute("city")+"'"); }%>>
                     </div>
                     
                     <!-- ZipCode -->
                     <div class="form-group col-md-2">
                       <label for="inputZip">Zip</label>
-                      <input type="text" class="form-control" id="inputZip" maxlength="5" name="zipCode" placeholder="37000" <% if(request.getAttribute("zipCode") != null) { out.println("value='"+request.getAttribute("zipCode")+"'"); }%>>
+                      <input type="text" class="form-control" id="inputZip" maxlength="5" required name="zipCode" placeholder="37000" <% if(request.getAttribute("zipCode") != null) { out.println("value='"+request.getAttribute("zipCode")+"'"); }%>>
                     </div>
                     
                     <!-- State -->
                     <div class="form-group col-md-3">
                         <label for="state">State</label>
-                        <input type="text" class="form-control" id="validationCustom04" name="state"  placeholder="Région Centre" <% if(request.getAttribute("state") != null) { out.println("value='"+request.getAttribute("state")+"'"); }%>>
+                        <input type="text" class="form-control" id="validationCustom04" required name="state"  placeholder="Région Centre" <% if(request.getAttribute("state") != null) { out.println("value='"+request.getAttribute("state")+"'"); }%>>
                     </div>
 
                     <!-- Country -->
                     <div class="form-group col-md-3">
                       <label for="country">Country</label>
-                      <input type="text" class="form-control" id="inputZip" placeholder="France" name="country" <% if(request.getAttribute("country") != null) { out.println("value='"+request.getAttribute("country")+"'"); }%>>
+                      <input type="text" class="form-control" id="inputZip" placeholder="France" required name="country" <% if(request.getAttribute("country") != null) { out.println("value='"+request.getAttribute("country")+"'"); }%>>
                     </div>
                 </div>
                     

@@ -23,13 +23,13 @@
                 <!-- email -->
                 <div class="form-group">
                   <label for="email">Email address</label>
-                  <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" <% if(request.getAttribute("email") != null) { out.println("value='"+request.getAttribute("email")+"'"); }%>>
+                  <input type="email" class="form-control" required name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" <% if(request.getAttribute("email") != null) { out.println("value='"+request.getAttribute("email")+"'"); }%>>
                 </div>
                 
                 <!-- password -->
                 <div class="form-group">
                     <label for="password">The password</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" <% if(request.getAttribute("password") != null) { out.println("value='"+request.getAttribute("password")+"'"); }%>>
+                    <input type="password" class="form-control" required name="password" id="password" placeholder="Password" <% if(request.getAttribute("password") != null) { out.println("value='"+request.getAttribute("password")+"'"); }%>>
                 </div>
                 
                 <p class="text-right"><button type="submit" class="btn btn-primary " >Login</button></p>

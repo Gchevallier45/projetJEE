@@ -63,13 +63,15 @@ import projetJEE.models.*;
     StoreManager storeManager;
     @Resource
     OpeningHourManager openingHourManager;
+    @Resource
+    PromotionManager promotionManager;
     
     @RequestMapping(value = "/Stores", method = RequestMethod.GET)
     public String Stores(ModelMap map, HttpServletRequest request) {
         logger.info("Entry in Stores");
         request.setAttribute("activePage","Stores");
 
-        List<Store> storesLis = storeManager.getAll();
+        List<Store> storesLis = storeManager.getAllOpen();
         request.setAttribute("stores", storesLis);
         
         logger.info("Exit AddStore");
@@ -80,28 +82,37 @@ import projetJEE.models.*;
     public String AddStore(ModelMap map, HttpServletRequest request, HttpSession session) {
         logger.info("Entry in AddStore");
         try {
-            if(session.getAttribute("userStatus") == null || !session.getAttribute("userStatus").equals("Owner"))
-                throw new Exception("You are not allowed to access this page. You must log in as a Owner.");
             
+            // Accessibility restricts
+            if(session.getAttribute("userStatus") == null || (!session.getAttribute("userStatus").equals("Owner") &&
+                                                                !session.getAttribute("userStatus").equals("Administrator")) )
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner or a Administrator.");
+            
+            // display the page of addition
             request.setAttribute("activePage","AddStore");
             map.put("title", "Add Store");
             map.put("actionForm", "AddStore");
-            logger.info("Exit AddStore");
+            logger.info("Display the page of addition");
             return "storeEdition";
         } catch(Exception e) {
                 request.setAttribute("erreur", e.getMessage());
-                logger.info("The store  has not been added. " + e.toString());
+                logger.info(e.getMessage());
+                
+                // redirect to the home page
                 return "index"; 
         }
     }
     
-     @RequestMapping(value = "/DeleteStore", method = RequestMethod.GET)
+     @RequestMapping(value = "/CloseStore", method = RequestMethod.GET)
     public String DeleteStore(ModelMap map, HttpServletRequest request, HttpSession session,
             @RequestParam(value="storeId", required=false) int storeId) {
-        logger.info("Entry in DeleteStore");
+        logger.info("Entry in CloseStore");
         try {
-            if(session.getAttribute("userStatus") == null || !session.getAttribute("userStatus").equals("Owner"))
-                throw new Exception("You are not allowed to access this page. You must log in as a Owner.");
+            // Accessibility restricts
+            if(session.getAttribute("userStatus") == null || (!session.getAttribute("userStatus").equals("Owner") &&
+                                                                !session.getAttribute("userStatus").equals("Administrator")) )
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner or a Administrator.");
+            
             
             Store store = null;
             try {
@@ -110,18 +121,29 @@ import projetJEE.models.*;
                 throw new Exception("The store with id '" + storeId + "' not exist.");
             }
             
-            if(session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getOwner().getID())
+            if(session.getAttribute("userId") == null || (!session.getAttribute("userStatus").equals("Administrator") && ((int) session.getAttribute("userId")) != store.getOwner().getID()) )
                 throw new Exception("You are not the owner of this store.");
             
-            storeManager.removeStore(store);
+            store.setIsClosed(true);
+            storeManager.addStore(store);
             
-            request.setAttribute("success", "The store '"+store.getName()+"' has been removed.");
-            request.setAttribute("activePage","Stores");
-            logger.info("Exit DeleteStore");
-            return "stores";
+            
+            List<Promotion> promotions = promotionManager.getPromotions();
+            for(Promotion promotion : promotions)
+            {
+                if(promotion.getKeyStr().equals(Integer.toString(store.getID()))) {
+                    promotion.setDisabled(true);
+                    promotionManager.addPromotion(promotion);
+                }
+            }
+            
+            request.setAttribute("success", "The store '"+store.getName()+"' has been closed.");
+            logger.info("Exit CloseStore");
+            
+            return Stores(map, request);
         } catch(Exception e) {
                 request.setAttribute("erreur", e.getMessage());
-                logger.info("The store  has not been deleted. " + e.toString());
+                logger.info("The store  has not been closed. " + e.toString());
                 return "index"; 
         }
     }
@@ -131,19 +153,25 @@ import projetJEE.models.*;
             @RequestParam(value="storeId", required=false) int storeId) {
         logger.info("Entry in UpdateStore");
         try {
-            if(session.getAttribute("userStatus") == null || !session.getAttribute("userStatus").equals("Owner"))
-                throw new Exception("You are not allowed to access this page. You must log in as a Owner.");
+            // Accessibility restricts
+            if(session.getAttribute("userStatus") == null || (!session.getAttribute("userStatus").equals("Owner") &&
+                                                                !session.getAttribute("userStatus").equals("Administrator")) )
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner of this store or a Administrator.");
             
             request.setAttribute("activePage","UpdateStore");
             // get store id
             Store store = null;
             try {
                  store = storeManager.getStoreById(storeId);
+
             } catch(Exception e) {
                 throw new Exception("The store with id '" + storeId + "' not exist.");
             }
+            if(store.isIsClosed())
+                     throw new Exception("The store with id '" + storeId + "' is closed.");
             
-            if(session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getOwner().getID())
+            // Accessibility restricts of Owner of the store
+            if(!session.getAttribute("userStatus").equals("Administrator") && (session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getOwner().getID()))
                 throw new Exception("You are not the owner of this store.");
             
             // add parameters
@@ -216,18 +244,17 @@ import projetJEE.models.*;
     
     @RequestMapping(value = "/AddStore", method = RequestMethod.POST)
     @Transactional
-    public String AddStorePOST(HttpServletRequest request,HttpServletResponse response,HttpSession session,
-          @RequestParam(value="name", required=false) String name, 
-          @RequestParam(value="email", required=false) String email,
-          ModelMap map) {
+    public String AddStorePOST(HttpServletRequest request,HttpServletResponse response,HttpSession session, ModelMap map) {
         logger.info("Entry in addStore");
-        request.setAttribute("activePage","AddStore");
-        map.put("title", "Add Store");
-        map.put("actionForm", "AddStore");
-        System.out.println("AddStore POST -> name:"+name);
-        
+
         try {
-        
+            request.setCharacterEncoding("UTF-8");
+            idStore = request.getParameter("idStore");
+            // Accessibility restricts
+            if(session.getAttribute("userStatus") == null || (!session.getAttribute("userStatus").equals("Owner") &&
+                                                                !session.getAttribute("userStatus").equals("Administrator")) )
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner or a Administrator.");
+            
             if(verificationStoreInformations(request)) {
                 Country objtCountry = countryManager.getCountryByName(country);
                 if(objtCountry == null)
@@ -269,36 +296,51 @@ import projetJEE.models.*;
                     request.setAttribute("closed"+days[indiceDay], isClosed.get(days[indiceDay]).toString());
                     request.setAttribute("24hrs"+days[indiceDay], id24h.get(days[indiceDay]).toString());
                 }
-
+                 
                 request.setAttribute("erreur", "The store  has not been added. " + e.getMessage());
+                request.setAttribute("activePage","AddStore");
+                map.put("title", "Add Store");
+                map.put("actionForm", "AddStore");
                 logger.info("The store  has not been added. " + e.toString());
                 return "storeEdition"; 
         }
-        request.setAttribute("activePage","Stores");
-
-        List<Store> storesLis = storeManager.getAll();
-        request.setAttribute("stores", storesLis);
-        
         logger.info("Exit in addStore");
-        return "stores";    
+        return Stores(map, request);   
     }
     
     @RequestMapping(value = "/UpdateStore", method = RequestMethod.POST)
     @Transactional
-    public String UpdateStorePOST(HttpServletRequest request,HttpServletResponse response,HttpSession session,
-          @RequestParam(value="name", required=false) String name, 
-          @RequestParam(value="email", required=false) String email,
-          ModelMap map) {
+    public String UpdateStorePOST(HttpServletRequest request,HttpServletResponse response,HttpSession session, ModelMap map) {
         logger.info("Entry in updateStore");
         request.setAttribute("activePage","UpdateStore");
         map.put("title", "Update Store");
         map.put("actionForm", "UpdateStore");
         
+        idStore = request.getParameter("idStore");
+        
         try {
+            request.setCharacterEncoding("UTF-8");
+            // Accessibility restricts
+            if(session.getAttribute("userStatus") == null || (!session.getAttribute("userStatus").equals("Owner") &&
+                                                                !session.getAttribute("userStatus").equals("Administrator")) )
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner of this store or a Administrator.");
+            
+            // get store id
+            Store store = null;
+            try {
+                 store = storeManager.getStoreById(Integer.parseInt(idStore));
+
+            } catch(Exception e) {
+                throw new Exception("The store with id '" + idStore + "' not exist.");
+            }
+            if(store.isIsClosed())
+                     throw new Exception("The store with id '" + idStore + "' is closed.");
+            
+            // Accessibility restricts of Owner of the store
+            if(!session.getAttribute("userStatus").equals("Administrator") && (session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getOwner().getID()))
+                throw new Exception("You are not the owner of this store.");
         
             if(verificationStoreInformations(request)) {
-                
-                Store store = storeManager.getStoreById(Integer.parseInt(idStore));
 
                 Country objtCountry = countryManager.getCountryByName(country);
                 if(objtCountry == null)
@@ -367,12 +409,8 @@ import projetJEE.models.*;
                 logger.info("The store  has not been added. " + e.toString());
                 return "storeEdition"; 
         }
-        request.setAttribute("activePage","Stores");
-        List<Store> storesLis = storeManager.getAll();
-        request.setAttribute("stores", storesLis);
-        
         logger.info("Exit in addStore");
-        return "stores";    
+        return Stores(map, request); 
     }
     
     public boolean verificationStoreInformations(HttpServletRequest request) throws Exception {
@@ -388,7 +426,6 @@ import projetJEE.models.*;
         country = request.getParameter("country");
         latitude = request.getParameter("latitude");
         longitude = request.getParameter("longitude");
-        idStore = request.getParameter("idStore");
 
         // opening hours
         for(int indiceDay = 0; indiceDay < 7; indiceDay++) {

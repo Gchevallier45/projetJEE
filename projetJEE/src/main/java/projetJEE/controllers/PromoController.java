@@ -9,7 +9,9 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +27,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import projetJEE.bl.concrete.AddressManager;
 import projetJEE.bl.concrete.PromotionManager;
+import projetJEE.bl.concrete.StoreManager;
 import projetJEE.bl.concrete.TypeManager;
 import projetJEE.bl.concrete.UserAccountManager;
 import projetJEE.models.Promotion;
+import projetJEE.models.Store;
 import projetJEE.models.Verifications;
  
 @Controller public class PromoController { 
@@ -39,6 +43,7 @@ import projetJEE.models.Verifications;
     String startDate;
     String endDate;
     String idPromo;
+    String idStore;
     
     @Resource
     UserAccountManager uamanager;
@@ -48,14 +53,24 @@ import projetJEE.models.Verifications;
     TypeManager typmanager;
     @Resource
     PromotionManager promotionManager;
+    @Resource
+    StoreManager storeManager;
     
     @RequestMapping(value = "/Promotions", method = RequestMethod.GET)
     public String Promotions(ModelMap map, HttpServletRequest request) {
         logger.info("Entry in Promotions");
         request.setAttribute("activePage","Promotions");
 
-        List<Promotion> promotionsList = promotionManager.getPromotions();
+        List<Store> storeslist = storeManager.getAllOpen();
+        
+        Map<String, Store> stores = new HashMap(); 
+        for(Store store : storeslist) {
+            stores.put(Integer.toString(store.getID()), store);
+        }
+        
+        List<Promotion> promotionsList = promotionManager.getPromotionsAbled();
         request.setAttribute("promotions", promotionsList);
+        request.setAttribute("stores", stores);
         
         logger.info("Exit Promotions");
         return "promotions";    
@@ -65,12 +80,17 @@ import projetJEE.models.Verifications;
     public String AddPromo(ModelMap map, HttpServletRequest request, HttpSession session) {
         logger.info("Entry in AddPromo");
         try {
-            if(session.getAttribute("userStatus") == null || !session.getAttribute("userStatus").equals("Owner"))
-                throw new Exception("You are not allowed to access this page. You must log in as a Owner.");
+            // Accessibility restricts
+            if(session.getAttribute("userStatus") == null || (!session.getAttribute("userStatus").equals("Owner") &&
+                                                                !session.getAttribute("userStatus").equals("Administrator")) )
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner or Administrator");
             
             request.setAttribute("activePage","AddPromo");
             map.put("title", "Add Promotions");
             map.put("actionForm", "AddPromo");
+            
+            List<Store> stores = getStores(session);
+            request.setAttribute("stores",stores);
             logger.info("Exit AddPromo");
             return "promoEdition";
         } catch(Exception e) {
@@ -88,11 +108,18 @@ import projetJEE.models.Verifications;
           @RequestParam("file") MultipartFile uploadedFile,
           ModelMap map) {
         logger.info("Entry in AddPromo");
+        
         request.setAttribute("activePage","AddPromo");
         map.put("title", "Add Promotions");
         map.put("actionForm", "AddPromo");
-        // ofLocalizedDate(dateStyle)
+
         try {
+            // Accessibility restricts
+            if(session.getAttribute("userStatus") == null || (!session.getAttribute("userStatus").equals("Owner") &&
+                                                                !session.getAttribute("userStatus").equals("Administrator")) )
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner or Administrator");
+            
+            request.setCharacterEncoding("UTF-8");
             if(verificationPromoInformations(request)) {
                 String path = request.getServletContext().getRealPath("/WEB-INF/resources/img/promos/") + File.separator + uploadedFile.getOriginalFilename();
                 try {
@@ -106,11 +133,6 @@ import projetJEE.models.Verifications;
                 promotionManager.addPromotion(promotion);
                 request.setAttribute("success", "The promotion has been registered");
                 
-                // add
-                List<Promotion> promotionsList = promotionManager.getPromotions();
-                
-                 request.setAttribute("promotions", promotionsList);
-                 request.setAttribute("activePage","Promotions");
                  logger.info("Exit in addStore");
             }
             
@@ -122,6 +144,10 @@ import projetJEE.models.Verifications;
             request.setAttribute("startDate", startDate);
             request.setAttribute("endDate", endDate);
             request.setAttribute("idPromo", idPromo);
+            request.setAttribute("idStore", idStore);
+            
+            List<Store> stores = getStores(session);
+            request.setAttribute("stores",stores);
 
             request.setAttribute("erreur", "The promotion  has not been added. " + e.getMessage());
             logger.info("The promotion  has not been added. " + e.toString());
@@ -133,7 +159,7 @@ import projetJEE.models.Verifications;
         List<Store> storesLis = storeManager.getAll();
         request.setAttribute("stores", storesLis);
         */
-        return "promotions"; 
+        return Promotions(map, request);
     }
     
     @RequestMapping(value = "/UpdatePromotion", method = RequestMethod.GET)
@@ -141,17 +167,23 @@ import projetJEE.models.Verifications;
              @RequestParam(value="promotionId", required=false) int promotionId) {
         logger.info("Entry in UpdatePromotion");
         try {
-            if(session.getAttribute("userStatus") == null || !session.getAttribute("userStatus").equals("Owner"))
-                throw new Exception("You are not allowed to access this page. You must log in as a Owner.");
-            
-             request.setAttribute("activePage","UpdatePromotion");
-             
+            // Accessibility restricts
+            if(session.getAttribute("userStatus") == null || (!session.getAttribute("userStatus").equals("Owner") &&
+                                                                !session.getAttribute("userStatus").equals("Administrator")) )
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner or Administrator");
             // get promotion id
+            idPromo= Integer.toString(promotionId);
             Promotion promotion = null;
             try {
                  promotion = promotionManager.getPromotionById(promotionId);
             } catch(Exception e) {
                 throw new Exception("The store with id '" + promotionId + "' not exist.");
+            }
+            
+             if(session.getAttribute("userStatus").equals("Owner")) {
+                Store store = storeManager.getStoreById(Integer.parseInt(promotion.getKeyStr()));
+                if(store == null || (session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getOwner().getID()))
+                throw new Exception("You are not the owner of the store of this promotion");
             }
             
             // add parameters
@@ -162,10 +194,16 @@ import projetJEE.models.Verifications;
             request.setAttribute("startDate", promotion.getStartDate());
             request.setAttribute("endDate", promotion.getEndDate());
             request.setAttribute("idPromo", promotion.getID());
+            request.setAttribute("idStore", promotion.getKeyStr());
             
+            request.setAttribute("activePage","UpdatePromotion");
             map.put("title", "Update promotion");
             map.put("actionForm", "UpdatePromotion");
             logger.info("Exit UpdatePromotion");
+            
+            List<Store> stores = getStores(session);
+            request.setAttribute("stores",stores);
+            
             return "promoEdition";
         } catch(Exception e) {
             request.setAttribute("erreur", e.getMessage());
@@ -186,10 +224,30 @@ import projetJEE.models.Verifications;
         map.put("actionForm", "UpdatePromotion");
         // ofLocalizedDate(dateStyle)
         try {
+            // Accessibility restricts
+            if(session.getAttribute("userStatus") == null || (!session.getAttribute("userStatus").equals("Owner") &&
+                                                                !session.getAttribute("userStatus").equals("Administrator")) )
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner or Administrator");
+            
+            // get promotion id
+            idPromo= request.getParameter("idPromo");
+            
+            Promotion promotion = null;
+            try {
+                 promotion = promotionManager.getPromotionById(Integer.parseInt(idPromo));
+            } catch(Exception e) {
+                throw new Exception("The store with id '" + idPromo + "' not exist.");
+            }
+            
+             if(session.getAttribute("userStatus").equals("Owner")) {
+                Store store = storeManager.getStoreById(Integer.parseInt(promotion.getKeyStr()));
+                if(store == null || (session.getAttribute("userId") == null || ((int) session.getAttribute("userId")) != store.getOwner().getID()))
+                throw new Exception("You are not the owner of the store of this promotion");
+            }
+            
+            request.setCharacterEncoding("UTF-8");
             if(verificationPromoInformations(request)) {
-                
-                
-                Promotion promotion = promotionManager.getPromotionById(Integer.parseInt(idPromo));
+               
                 promotion.setTitle(title);
                 promotion.setShortDescription(shortDescription);
                 promotion.setLongDescription(longDescription);
@@ -198,12 +256,7 @@ import projetJEE.models.Verifications;
 
                 promotionManager.addPromotion(promotion);
                 request.setAttribute("success", "The promotion has been updated");
-                
-                // add
-                List<Promotion> promotionsList = promotionManager.getPromotions();
-                
-                 request.setAttribute("promotions", promotionsList);
-                 request.setAttribute("activePage","Promotions");
+
                  logger.info("Exit in addStore");
             }
             
@@ -215,27 +268,28 @@ import projetJEE.models.Verifications;
             request.setAttribute("startDate", startDate);
             request.setAttribute("endDate", endDate);
             request.setAttribute("idPromo", idPromo);
-
+            request.setAttribute("idStore", idStore);
+            
+            List<Store> stores = getStores(session);
+            request.setAttribute("stores",stores);
+            
             request.setAttribute("erreur", "The promotion  has not been added. " + e.getMessage());
             logger.info("The promotion  has not been added. " + e.toString());
             return "promoEdition"; 
         }
         
-        
-        /*
-        List<Store> storesLis = storeManager.getAll();
-        request.setAttribute("stores", storesLis);
-        */
-        return "promotions"; 
+        return Promotions(map, request);
     }
     
-    @RequestMapping(value = "/DeletePromotion", method = RequestMethod.GET)
+    @RequestMapping(value = "/DisablePromotion", method = RequestMethod.GET)
     public String DeletePromotion(ModelMap map, HttpServletRequest request, HttpSession session,
             @RequestParam(value="promotionId", required=false) int promotionId) {
-        logger.info("Entry in DeletePromotion");
+        logger.info("Entry in DisablePromotion");
         try {
-            if(session.getAttribute("userStatus") == null || !session.getAttribute("userStatus").equals("Owner") && !session.getAttribute("userStatus").equals("Administrator"))
-                throw new Exception("You are not allowed to access this page. You must log in as a Owner.");
+            // Accessibility restricts
+            if(session.getAttribute("userStatus") == null || (!session.getAttribute("userStatus").equals("Owner") &&
+                                                                !session.getAttribute("userStatus").equals("Administrator")) )
+                throw new Exception("You are not allowed to access this page. You must log in as a Owner or Administrator");
             
             Promotion promotion = null;
             try {
@@ -243,18 +297,16 @@ import projetJEE.models.Verifications;
             } catch(Exception e) {
                 throw new Exception("The promotion with id '" + promotionId + "' not exist.");
             }
-
-            promotionManager.removePromotion(promotion);
             
-            request.setAttribute("success", "The promotion '"+promotion.getTitle()+"' has been removed.");
-            request.setAttribute("activePage","Promotions");
-            List<Promotion> promotionsList = promotionManager.getPromotions();
-            request.setAttribute("promotions", promotionsList);
-            logger.info("Exit DeletePromotion");
-            return "promotions";
+            promotion.setDisabled(true);
+            promotionManager.addPromotion(promotion);
+            
+            request.setAttribute("success", "The promotion '"+promotion.getTitle()+"' has been disabled.");
+            logger.info("Exit DisablePromotion");
+            return Promotions(map, request);
         } catch(Exception e) {
                 request.setAttribute("erreur", e.getMessage());
-                logger.info("The store  has not been deleted. " + e.toString());
+                logger.info("The store  has not been disabled. " + e.toString());
                 return "index"; 
         }
     }
@@ -268,7 +320,7 @@ import projetJEE.models.Verifications;
         longDescription= request.getParameter("longDescription");
         startDate = request.getParameter("startDate");
         endDate = request.getParameter("endDate");
-        idPromo= request.getParameter("idPromo");
+        idStore = request.getParameter("idStore");
         
          Verifications verif = new Verifications();
         
@@ -279,8 +331,23 @@ import projetJEE.models.Verifications;
         verif.longDescriptionDesciptionVerification(longDescription);
         verif.datesVerification(startDate, endDate);
         
+        if(storeManager.getStoreById(Integer.parseInt(idStore)) == null)
+            throw new Exception("The store with id '" + idStore + "' not exist.");
+        
         logger.info("Exit VerificationStoreInformations");
         return true;
+    }
+    
+    public List<Store> getStores(HttpSession session) {
+        // Owner of store(s)
+        if(session.getAttribute("userStatus") == null || session.getAttribute("userStatus").equals("Owner")) {
+            return storeManager.getStoresManagerOfOwner((int) session.getAttribute("userId"));
+        }
+        else
+            if(session.getAttribute("userStatus") == null || session.getAttribute("userStatus").equals("Administrator")) {
+                return storeManager.getAllOpen();
+            }
+        return null;
     }
 } 
 

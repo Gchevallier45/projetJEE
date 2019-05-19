@@ -1,5 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
-
+<%@page contentType="text/html" pageEncoding="UTF-8" import="java.util.*,java.text.*,projetJEE.models.*, java.time.format.DateTimeFormatter" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <c:set var="cp" value="${pageContext.request.servletContext.contextPath}" scope="request" /> 
 <!DOCTYPE html>
 <html>  
@@ -15,25 +14,43 @@
             
             <%@include file="messageErreur.jsp" %>
             
+            <%
+            if(request.getAttribute("stores")!=null) {
+            %>
+            
             <form action="${actionForm}" method="POST" enctype="multipart/form-data">
+                
+                 <!-- Store -->
+                <label for="idStore">Store</label>
+                <select id="type" name="idStore" class="custom-select mr-sm-2 col-sm-6">
+                 <%
+                List<Store> stores = (List<Store>) request.getAttribute("stores");
+                for(Store store : stores) {
+                %>
+
+                    <option value="<%= store.getID() %>"  <% if(request.getAttribute("idStore") != null && request.getAttribute("idStore").equals(Integer.toString(store.getID()))) { out.println("selected"); }%> ><%= store.getName() %></option>
+               <% } %>
+                </select>
+                
+                
                 <div class="form-row">
                     <!-- Promotion Title -->
                     <div class="form-group col-md-6">
                         <label for="promoTitle">Promotion title</label>
-                        <input type="text" class="form-control" name="promoTitle" id="promoTitle"  placeholder="Ex: Get 12 cookies for $5.00" <% if(request.getAttribute("promoTitle") != null) { out.println("value='"+request.getAttribute("promoTitle")+"'"); }%> >
+                        <input type="text" class="form-control" name="promoTitle" id="promoTitle" required placeholder="Ex: Get 12 cookies for $5.00" <% if(request.getAttribute("promoTitle") != null) { out.println("value='"+request.getAttribute("promoTitle")+"'"); }%> >
                     </div>
                 </div>
 
                 <!-- shortDescription -->
                 <div class="form-group">
                   <label for="shortDescription">Short description</label>
-                  <input type="text" class="form-control" name="shortDescription" id="shortDescription" placeholder="Enjoy a box of mouth-watering freshly baked cookies and save." <% if(request.getAttribute("shortDescription") != null) { out.println("value='"+request.getAttribute("shortDescription")+"'"); }%> >
+                  <input type="text" class="form-control" name="shortDescription" id="shortDescription" required placeholder="Enjoy a box of mouth-watering freshly baked cookies and save." <% if(request.getAttribute("shortDescription") != null) { out.println("value='"+request.getAttribute("shortDescription")+"'"); }%> >
                 </div>    
                     
                 <!-- longDescription -->
                 <div class="form-group">
                     <label for="longDescription">Long Description</label>
-                    <textarea class="form-control" rows="5" id="longDescription" name="longDescription" ><% if(request.getAttribute("longDescription") != null) { out.println(request.getAttribute("longDescription")); }%></textarea>
+                    <textarea class="form-control" rows="5" id="longDescription" name="longDescription" required><% if(request.getAttribute("longDescription") != null) { out.println(request.getAttribute("longDescription")); }%></textarea>
                 </div>
                 
                 <div class="form-row">
@@ -60,6 +77,18 @@
                       
                 <p class="text-right"><button type="submit" class="btn btn-primary " >Save</button></p>
             </form>
+           <%
+            }
+            else {
+                if(session.getAttribute("userStatus").equals("Administrator")) {
+                 out.println("There is no shop at the moment.");
+                } else
+                {
+                 out.println("You have no shop at the moment.");
+                }
+            }
+            %>
+
 
          </section>
          <!--<script type="text/javascript" src="${cp}/resources/js/storeEdition.js"></script>-->

@@ -53,7 +53,7 @@
   <li class="nav-item">
     <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("Promotions")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>/Promotions">Promotions</a>
   </li>
-  <% if( session.getAttribute("userStatus") != null && session.getAttribute("userStatus").equals("Owner")) { %>
+  <% if(session.getAttribute("userStatus") != null && (session.getAttribute("userStatus").equals("Owner") || session.getAttribute("userStatus").equals("Administrator"))) { %>
   <li class="nav-item">
     <a <% if(request.getAttribute("activePage") != null && request.getAttribute("activePage").equals("AddStore")) { %> <%="class='nav-link active'"%><% } else { %> class="nav-link" <% } %> href="<%=request.getContextPath()%>/AddStore">Add Store</a>
   </li>

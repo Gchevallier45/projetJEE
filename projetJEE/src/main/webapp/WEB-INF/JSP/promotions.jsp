@@ -21,12 +21,15 @@
                 
             if(request.getAttribute("promotions")!=null) {
 
+                
                 List<Promotion> promotionList = (List<Promotion>) request.getAttribute("promotions");
+                Map<String, Store> stores = (Map<String, Store>) request.getAttribute("stores");
                 for(Promotion promotion : promotionList) {
+                    Store store = stores.get(promotion.getKeyStr());
                     %>
                     
                     <div class="promotion" >
-                        <h2><%= promotion.getTitle() %></h2>
+                        <h2><%= store.getName() + " : " + promotion.getTitle() %></h2>
                         <div class="shortDescription">
                             <span><%= promotion.getShortDescription() %></span>
                         </div>
@@ -37,11 +40,13 @@
                         <div class="dates">
                             <span><%= promotion.getStartDate().format(DateTimeFormatter.ISO_LOCAL_DATE) %></span> - <span><%= promotion.getEndDate().format(DateTimeFormatter.ISO_LOCAL_DATE) %></span> 
                         </div>
+                        
                         <% 
                             
-                         if(session.getAttribute("userStatus") != null && (session.getAttribute("userStatus").equals("Owner") || session.getAttribute("userStatus").equals("Administrator"))){ %>
+                         if(session.getAttribute("userStatus") != null &&  (session.getAttribute("userStatus").equals("Administrator") || 
+                            (session.getAttribute("userStatus").equals("Owner") && (session.getAttribute("userId") != null && (session.getAttribute("userId")).equals(store.getOwner().getID() ))) ) ){ %>
                         <div class="actionsOnPromotion">
-                            <button type="button" class="btn btn-info" onclick="document.location.href='${cp}/UpdatePromotion?promotionId=<%= promotion.getID() %>'">Edit</button> <button type="button" class="btn btn-warning"   onclick="removePromotion('<%= promotion.getID() %>', '<%= promotion.getTitle() %>')">Remove</button>
+                            <button type="button" class="btn btn-info" onclick="document.location.href='${cp}/UpdatePromotion?promotionId=<%= promotion.getID() %>'">Edit</button> <button type="button" class="btn btn-warning"   onclick="disablePromotion('<%= promotion.getID() %>', '<%= promotion.getTitle() %>')">Disable</button>
                         </div>
                         <% } %>
                     </div>
@@ -80,9 +85,9 @@
             });
           });
           
-          function removePromotion(promotionId, title) {
-                if(confirm("Do you want to delete the promotion '"+title+"'?"))
-                    document.location.href="${cp}/DeletePromotion?promotionId="+promotionId;
+          function disablePromotion(promotionId, title) {
+                if(confirm("Do you want to disable the promotion '"+title+"'?"))
+                    document.location.href="${cp}/DisablePromotion?promotionId="+promotionId;
             }
 
 

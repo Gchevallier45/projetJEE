@@ -140,9 +140,9 @@ CREATE TABLE IF NOT EXISTS `promotions` (
 --
 
 INSERT INTO `promotions` (`Id`, `KeyStr`, `Title`, `ShortDescription`, `LongDescription`, `Position`, `Disabled`, `StartDate`, `EndDate`, `ImageURL`) VALUES
-(1, '', 'blabla', '', '', 1, 0, '2019-04-03', '2019-04-12', ''),
-(2, '', 'get 12 cookies', 'fzeofzejfoiezho', 'ghzeiughziuh', 0, 0, '2000-02-23', '2000-03-27', ''),
-(6, '', 'image', 'image', 'image', 0, 0, '2000-02-02', '2000-02-03', '487.png');
+(1, '1', 'blabla', '', '', 1, 0, '2019-04-03', '2019-04-12', ''),
+(2, '10', 'get 12 cookies', 'fzeofzejfoiezho', 'ghzeiughziuh', 0, 0, '2000-02-23', '2000-03-27', ''),
+(6, '11', 'image', 'image', 'image', 0, 0, '2000-02-02', '2000-02-03', '487.png');
 
 -- --------------------------------------------------------
 
